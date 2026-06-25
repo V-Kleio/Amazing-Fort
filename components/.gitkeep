@@ -1,0 +1,2 @@
+This folder is used to store reusable components (along with its related assets).
+Example such as Health component including Health.gd and assets like the sfx and the health bar sprite(s)

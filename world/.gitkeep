@@ -1,0 +1,4 @@
+This folder is used to store world (level) scripts and assets.
+This is where the entities lives and usually the root of a scene.
+To differentiate with UI, UI uses screen coordinates while world uses world coordinates
+Example such as Battlefield, Home

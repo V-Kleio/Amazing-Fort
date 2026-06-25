@@ -1,0 +1,5 @@
+This folder is used to store and group together entities or objects inside the game.
+Objects are defined as something that lives inside the world (NOT UI) and is usually children of the world node
+To differentiate between components, components are attached to entitiy
+This folder include assets and grouped together
+Example such as player folder which include player.gd and player assets

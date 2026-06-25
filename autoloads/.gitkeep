@@ -1,0 +1,2 @@
+This folder is used to store scripts that are intended as singleton/global.
+Example such as event_bus.gd, audio_manager.gd

@@ -1,0 +1,3 @@
+This folder is used to store files that is needed across domain like a texture used in an entity and also in a world
+If you are confused where to place the file because it is needed by many folder domain, place it here
+Example such as placeholder.png
