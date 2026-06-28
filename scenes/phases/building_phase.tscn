@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bme66ykmheuu"]
+
+[ext_resource type="Script" uid="uid://b106y2enwviov" path="res://scenes/phases/building_phase.gd" id="1_oksue"]
+
+[node name="BuildingPhase" type="Node2D" unique_id=1495787476]
+script = ExtResource("1_oksue")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=430975575]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=561952594]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PhaseLabel" type="Label" parent="CanvasLayer/Control" unique_id=438013783]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Building Phase"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/Control" unique_id=1986542941]
+layout_mode = 0
+offset_top = 50.0
+offset_right = 79.0
+offset_bottom = 81.0
+text = "Continue"
+
+[connection signal="pressed" from="CanvasLayer/Control/ContinueButton" to="." method="_on_continue_pressed"]

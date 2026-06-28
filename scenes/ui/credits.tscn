@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://djgjsp08majiv"]
 
-[ext_resource type="Script" uid="uid://djt0lcxo0eiau" path="res://scenes/credits.gd" id="1_0bpdh"]
+[ext_resource type="Script" uid="uid://djt0lcxo0eiau" path="res://scenes/ui/credits.gd" id="1_0bpdh"]
 
 [node name="Credits" type="Control" unique_id=997851236]
 layout_mode = 3

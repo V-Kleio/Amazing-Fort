@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d1day2vmoye4a"]
+
+[ext_resource type="Script" uid="uid://ctnc6oe66rno8" path="res://scenes/phases/choosing_phase.gd" id="1_d1f2c"]
+
+[node name="ChoosingPhase" type="Node2D" unique_id=512770483]
+script = ExtResource("1_d1f2c")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=372964321]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=260609269]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PhaseLabel" type="Label" parent="CanvasLayer/Control" unique_id=1885306743]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Roguelite Choosing Phase"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/Control" unique_id=1964949728]
+layout_mode = 0
+offset_top = 50.0
+offset_right = 79.0
+offset_bottom = 81.0
+text = "Continue"
+
+[connection signal="pressed" from="CanvasLayer/Control/ContinueButton" to="." method="_on_continue_pressed"]

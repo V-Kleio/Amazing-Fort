@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dv4k0t3oexboj"]
+
+[ext_resource type="Script" uid="uid://by4ityoniorbc" path="res://scenes/level_controller.gd" id="1_20026"]
+[ext_resource type="PackedScene" uid="uid://d1day2vmoye4a" path="res://scenes/phases/choosing_phase.tscn" id="2_digp3"]
+[ext_resource type="PackedScene" uid="uid://bme66ykmheuu" path="res://scenes/phases/building_phase.tscn" id="3_yupck"]
+[ext_resource type="PackedScene" uid="uid://c17r4g7sthqsj" path="res://scenes/phases/attacking_phase.tscn" id="4_xfvny"]
+[ext_resource type="PackedScene" uid="uid://b6hpmtu45o5l3" path="res://scenes/ui/win_screen.tscn" id="5_t82cj"]
+[ext_resource type="PackedScene" uid="uid://du8obn4iwf61q" path="res://scenes/ui/tutorial.tscn" id="6_yupck"]
+
+[node name="Level" type="Node2D" unique_id=2131601295]
+script = ExtResource("1_20026")
+choosing_phase_scene = ExtResource("2_digp3")
+building_phase_scene = ExtResource("3_yupck")
+attacking_phase_scene = ExtResource("4_xfvny")
+win_screen_scene = ExtResource("5_t82cj")
+tutorial_scene = ExtResource("6_yupck")
+
+[node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
