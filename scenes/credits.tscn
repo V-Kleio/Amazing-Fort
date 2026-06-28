@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://djgjsp08majiv"]
+
+[ext_resource type="Script" uid="uid://djt0lcxo0eiau" path="res://scenes/credits.gd" id="1_0bpdh"]
+
+[node name="Credits" type="Control" unique_id=997851236]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0bpdh")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1379513456]
+layout_mode = 0
+offset_right = 1923.0
+offset_bottom = 1076.0
+color = Color(0, 0, 0, 1)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1492348785]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Separator" type="HSeparator" parent="." unique_id=410258882]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 4.0
+
+[node name="ColumnsHBox" type="HBoxContainer" parent="." unique_id=2127619066]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 77.0
+
+[node name="ProgrammerVBox" type="VBoxContainer" parent="ColumnsHBox" unique_id=1275514219]
+layout_mode = 2
+
+[node name="SectionLabel" type="Label" parent="ColumnsHBox/ProgrammerVBox" unique_id=1191107998]
+layout_mode = 2
+text = "Programmer"
+
+[node name="Name1" type="Label" parent="ColumnsHBox/ProgrammerVBox" unique_id=8261311]
+layout_mode = 2
+text = "El"
+
+[node name="Name2" type="Label" parent="ColumnsHBox/ProgrammerVBox" unique_id=414077897]
+layout_mode = 2
+text = "Rana"
+
+[node name="ArtVBox" type="VBoxContainer" parent="ColumnsHBox" unique_id=1926901662]
+layout_mode = 2
+
+[node name="SectionLabel" type="Label" parent="ColumnsHBox/ArtVBox" unique_id=2098867909]
+layout_mode = 2
+text = "Visual Artist"
+
+[node name="Name1" type="Label" parent="ColumnsHBox/ArtVBox" unique_id=1829649145]
+layout_mode = 2
+text = "Kei"
+
+[node name="Name2" type="Label" parent="ColumnsHBox/ArtVBox" unique_id=1704940842]
+layout_mode = 2
+text = "Izzah"
