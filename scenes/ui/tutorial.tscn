@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://du8obn4iwf61q"]
+
+[ext_resource type="Script" uid="uid://dfhcq0cu4vigo" path="res://scenes/ui/tutorial.gd" id="1_c13y7"]
+
+[node name="Tutorial" type="Control" unique_id=22436107]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_c13y7")
+
+[node name="Background" type="ColorRect" parent="." unique_id=235500638]
+layout_mode = 0
+offset_right = 1962.0
+offset_bottom = 1108.0
+color = Color(0, 0, 0, 1)
+
+[node name="StepContainer" type="Control" parent="." unique_id=109921309]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IllustrationRect" type="TextureRect" parent="StepContainer" unique_id=1376715509]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StepLabel" type="Label" parent="StepContainer" unique_id=551016508]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="NextButton" type="Button" parent="." unique_id=162233712]
+layout_mode = 0
+offset_top = 200.0
+offset_right = 8.0
+offset_bottom = 208.0
+text = "Next"
+
+[node name="SkipButton" type="Button" parent="." unique_id=1855784751]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 200.0
+offset_right = 541.0
+offset_bottom = 231.0
+text = "Skip"
+
+[connection signal="pressed" from="NextButton" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="SkipButton" to="." method="_on_skip_pressed"]

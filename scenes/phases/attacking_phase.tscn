@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://c17r4g7sthqsj"]
+
+[ext_resource type="Script" uid="uid://cwrhalymn6xvu" path="res://scenes/phases/attacking_phase.gd" id="1_k51t1"]
+
+[node name="AttackingPhase" type="Node2D" unique_id=519559091]
+script = ExtResource("1_k51t1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=361132000]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1526091452]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PhaseLabel" type="Label" parent="CanvasLayer/Control" unique_id=848924093]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_right = 62.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Attacking Phase"
+
+[node name="RoundLabel" type="Label" parent="CanvasLayer/Control" unique_id=1060078257]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 70.0
+offset_right = 62.0
+offset_bottom = 115.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="ResultContainer" type="Control" parent="CanvasLayer/Control" unique_id=173705244]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/Control/ResultContainer" unique_id=191331913]
+layout_mode = 0
+offset_top = 50.0
+offset_right = 40.0
+offset_bottom = 73.0
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/Control/ResultContainer" unique_id=1525706204]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -15.5
+offset_right = 39.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Continue"
+
+[node name="FortressArea" type="Node2D" parent="." unique_id=1015596278]
+
+[connection signal="pressed" from="CanvasLayer/Control/ResultContainer/ContinueButton" to="." method="_on_continue_pressed"]

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b6hpmtu45o5l3"]
+
+[ext_resource type="Script" uid="uid://letfrbc50tn7" path="res://scenes/ui/win_screen.gd" id="1_wv5lq"]
+
+[node name="WinScreen" type="Control" unique_id=1429529570]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wv5lq")
+
+[node name="Background" type="ColorRect" parent="." unique_id=197495539]
+layout_mode = 0
+offset_right = 1946.0
+offset_bottom = 1117.0
+color = Color(0, 0, 0, 1)
+
+[node name="ContentVBox" type="VBoxContainer" parent="." unique_id=1786446777]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 50.0
+
+[node name="WinLabel" type="Label" parent="ContentVBox" unique_id=1629038702]
+layout_mode = 2
+
+[node name="RoundLabel" type="Label" parent="ContentVBox" unique_id=1107145176]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="." unique_id=1535230445]
+layout_mode = 0
+offset_top = 54.0
+offset_right = 40.0
+offset_bottom = 62.0

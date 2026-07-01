@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cnfdqv2netejm"]
+
+[ext_resource type="Script" uid="uid://s1h8yvrqxy42" path="res://scenes/ui/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="PackedScene" uid="uid://djgjsp08majiv" path="res://scenes/ui/credits.tscn" id="2_ekxnf"]
+
+[node name="MainMenu" type="Control" unique_id=349406763]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l6cm7")
+credits_scene = ExtResource("2_ekxnf")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1935086065]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="StartButton" type="Button" parent="." unique_id=146906822]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Start"
+
+[node name="SettingsButton" type="Button" parent="." unique_id=1579508046]
+layout_mode = 0
+offset_top = 50.0
+offset_right = 70.0
+offset_bottom = 81.0
+text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="." unique_id=768937095]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 63.0
+offset_bottom = 131.0
+text = "Credits
+"
+
+[node name="QuitButton" type="Button" parent="." unique_id=1954360145]
+layout_mode = 0
+offset_top = 150.0
+offset_right = 42.0
+offset_bottom = 181.0
+text = "Quit"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_pressed"]
