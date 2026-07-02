@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://dvlic1u1tbw7c"]
+
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_ref2f"]
+[ext_resource type="Texture2D" uid="uid://d3tfngatjb05t" path="res://icon.svg" id="1_ub5gf"]
+
+[resource]
+script = ExtResource("1_ref2f")
+quantity = 2
+display_name = "Test1"
+description = "Ini buat test scene doang"
+icon = ExtResource("1_ub5gf")
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

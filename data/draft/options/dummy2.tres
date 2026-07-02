@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDraftOption" format=3 uid="uid://deasmyca8pilm"]
+
+[ext_resource type="Script" uid="uid://balqko8f2rwev" path="res://data/draft/upgrade_draft_option.gd" id="1_57cuv"]
+[ext_resource type="Texture2D" uid="uid://clvuqdxeptahc" path="res://assets/visual/dummy/ball_dummy.png" id="1_s37n6"]
+
+[resource]
+script = ExtResource("1_57cuv")
+upgrade_id = &"static_electricity"
+display_name = "Static Electricity"
+description = "Imagination magic! Placed blankets cling tighter and gain durability."
+icon = ExtResource("1_s37n6")
+rarity = 2
+metadata/_custom_type_script = "uid://balqko8f2rwev"

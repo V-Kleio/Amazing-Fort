@@ -21,6 +21,7 @@ GameEvents="*uid://sq2i5nmo5872"
 GameManager="*uid://b5jkcy6riiwtq"
 SaveManager="*uid://bqr82avo1xh53"
 SceneManager="*uid://c527tmg7h3rgo"
+PlayerInventory="*uid://do3xur255mnyp"
 
 [display]
 

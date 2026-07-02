@@ -17,6 +17,10 @@ signal game_over()
 signal game_won()
 signal round_started(round_number: int)
 
+## Draft phase signals
+signal draft_option_selected(option: DraftOption)
+signal upgrade_acquired(option: DraftOption)
+
 ## Safely connect if not already connected
 func try_connect(sig: Signal, callable: Callable) -> void:
 	if not sig.is_connected(callable):
