@@ -11,6 +11,7 @@ bounce = 1.0
 radius = 38.013157
 
 [node name="Ball" type="RigidBody2D" unique_id=815598646]
+z_index = 100
 collision_layer = 137
 collision_mask = 7
 mass = 0.1
