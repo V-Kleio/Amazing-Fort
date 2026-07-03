@@ -1,6 +1,48 @@
 [gd_scene format=3 uid="uid://c63jxqngpma6n"]
 
 [ext_resource type="Script" uid="uid://d3nsb4pvbq0aw" path="res://scenes/ui/settings.gd" id="1_8wfqe"]
+[ext_resource type="Texture2D" uid="uid://phyn0lr3asbm" path="res://assets/visual/settings/bacngkround settings.png" id="2_7pacj"]
+[ext_resource type="Theme" uid="uid://d041d5fl6lsgm" path="res://default_theme.tres" id="3_h175o"]
+[ext_resource type="Texture2D" uid="uid://dckv4rep50udy" path="res://assets/visual/settings/bulet slider.png" id="4_4xk3x"]
+[ext_resource type="Texture2D" uid="uid://bdrf0qqwx688q" path="res://assets/visual/settings/belakang slider.png" id="6_d4m38"]
+[ext_resource type="FontFile" uid="uid://c21vq2bojxddj" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="6_ob3hf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ncfhn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ptynm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ncfhn"]
+content_margin_top = 48.0
+texture = ExtResource("6_d4m38")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptynm"]
+bg_color = Color(1, 0.2901961, 0.12156863, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ob3hf"]
+content_margin_top = 48.0
+texture = ExtResource("6_d4m38")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncfhn"]
+bg_color = Color(1, 0.2901961, 0.12156863, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xk3x"]
+content_margin_top = 48.0
+texture = ExtResource("6_d4m38")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob3hf"]
+bg_color = Color(1, 0.2901961, 0.12156863, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [node name="Settings" type="CanvasLayer" unique_id=1262314283]
 process_mode = 3
@@ -37,16 +79,31 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ncfhn")
+
+[node name="TextureRect" type="TextureRect" parent="Root/Panel" unique_id=2015751852]
+layout_mode = 2
+texture = ExtResource("2_7pacj")
 
 [node name="VBox" type="VBoxContainer" parent="Root/Panel" unique_id=1038705034]
-custom_minimum_size = Vector2(560, 0)
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 14
 
 [node name="TitleLabel" type="Label" parent="Root/Panel/VBox" unique_id=505906606]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("3_h175o")
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_font_sizes/font_size = 164
 text = "Settings"
+
+[node name="Panel" type="Panel" parent="Root/Panel/VBox" unique_id=1635196605]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 
 [node name="MasterRow" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=453161176]
 layout_mode = 2
@@ -54,11 +111,24 @@ layout_mode = 2
 [node name="MasterLabel" type="Label" parent="Root/Panel/VBox/MasterRow" unique_id=1836422283]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+theme = ExtResource("3_h175o")
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_font_sizes/font_size = 56
 text = "Master"
+
+[node name="Panel" type="Panel" parent="Root/Panel/VBox/MasterRow" unique_id=40102430]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 
 [node name="MasterSlider" type="HSlider" parent="Root/Panel/VBox/MasterRow" unique_id=508644119]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("4_4xk3x")
+theme_override_icons/grabber_highlight = ExtResource("4_4xk3x")
+theme_override_styles/slider = SubResource("StyleBoxTexture_ncfhn")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ptynm")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_ptynm")
 max_value = 1.0
 step = 0.01
 
@@ -68,11 +138,24 @@ layout_mode = 2
 [node name="MusicLabel" type="Label" parent="Root/Panel/VBox/MusicRow" unique_id=127391291]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+theme = ExtResource("3_h175o")
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_font_sizes/font_size = 56
 text = "Music"
+
+[node name="Panel" type="Panel" parent="Root/Panel/VBox/MusicRow" unique_id=1056443002]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 
 [node name="MusicSlider" type="HSlider" parent="Root/Panel/VBox/MusicRow" unique_id=1693977570]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("4_4xk3x")
+theme_override_icons/grabber_highlight = ExtResource("4_4xk3x")
+theme_override_styles/slider = SubResource("StyleBoxTexture_ob3hf")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ncfhn")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_ncfhn")
 max_value = 1.0
 step = 0.01
 
@@ -82,11 +165,24 @@ layout_mode = 2
 [node name="SfxLabel" type="Label" parent="Root/Panel/VBox/SfxRow" unique_id=1016477407]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+theme = ExtResource("3_h175o")
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_font_sizes/font_size = 56
 text = "SFX"
+
+[node name="Panel" type="Panel" parent="Root/Panel/VBox/SfxRow" unique_id=330273526]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 
 [node name="SfxSlider" type="HSlider" parent="Root/Panel/VBox/SfxRow" unique_id=1692469430]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("4_4xk3x")
+theme_override_icons/grabber_highlight = ExtResource("4_4xk3x")
+theme_override_styles/slider = SubResource("StyleBoxTexture_4xk3x")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ob3hf")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_ob3hf")
 max_value = 1.0
 step = 0.01
 
@@ -96,15 +192,37 @@ layout_mode = 2
 [node name="MuteLabel" type="Label" parent="Root/Panel/VBox/MuteRow" unique_id=768396962]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+theme = ExtResource("3_h175o")
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_font_sizes/font_size = 56
 text = "Mute All"
+
+[node name="Panel" type="Panel" parent="Root/Panel/VBox/MuteRow" unique_id=1924528639]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 
 [node name="MuteToggle" type="CheckButton" parent="Root/Panel/VBox/MuteRow" unique_id=1210947577]
 layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
 
 [node name="ResetTutorialButton" type="Button" parent="Root/Panel/VBox" unique_id=28050308]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_colors/font_pressed_color = Color(0.5627382, 0.19155154, 0.18631488, 1)
+theme_override_colors/font_disabled_color = Color(0.63686824, 0.22441512, 0.2179167, 1)
+theme_override_fonts/font = ExtResource("6_ob3hf")
+theme_override_font_sizes/font_size = 36
 text = "Replay Tutorial"
+flat = true
 
 [node name="CloseButton" type="Button" parent="Root/Panel/VBox" unique_id=1902284201]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("6_ob3hf")
+theme_override_font_sizes/font_size = 36
 text = "Close"
+flat = true

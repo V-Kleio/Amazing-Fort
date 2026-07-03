@@ -10,8 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://cohhvlyoavg8m" path="res://entities/kid/kid.tscn" id="8_eegx8"]
 [ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="9_stgs"]
 [ext_resource type="Texture2D" uid="uid://bwxnran7i2o54" path="res://assets/visual/New living room background.PNG" id="10_bmpau"]
-[ext_resource type="Texture2D" uid="uid://cnsvptgc45od7" path="res://assets/visual/Border.PNG" id="11_lhxab"]
 [ext_resource type="AudioStream" uid="uid://daurk5p8dx36g" path="res://assets/audio/Fun Puzzle Quest! Calm Puzzle Game Music by HeatleyBros.mp3" id="10_lhxab"]
+[ext_resource type="PackedScene" uid="uid://cfeepohgtwxyl" path="res://scenes/ui/defend_transition.tscn" id="11_4gnvc"]
+[ext_resource type="Texture2D" uid="uid://cnsvptgc45od7" path="res://assets/visual/Border.PNG" id="11_lhxab"]
+[ext_resource type="Texture2D" uid="uid://w1korhhtidej" path="res://assets/visual/build/Settings.PNG" id="14_8ao5r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
 size = Vector2(1940, 101.000046)
@@ -27,6 +29,7 @@ attacker_scene = ExtResource("7_xfvny")
 kid_scene = ExtResource("8_eegx8")
 settings_scene = ExtResource("9_stgs")
 gameplay_music = ExtResource("10_lhxab")
+transition_scene = ExtResource("11_4gnvc")
 
 [node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
 
@@ -58,10 +61,11 @@ position = Vector2(1620, 800)
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1106252430 groups=["hard_material"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1131788297]
-position = Vector2(964, 35)
+position = Vector2(968, -43)
 shape = SubResource("RectangleShape2D_xfvny")
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=45981872]
+visible = false
 offset_right = 1920.0
 offset_bottom = 64.0
 color = Color(0.1882353, 0.1882353, 0.1882353, 1)
@@ -70,10 +74,11 @@ color = Color(0.1882353, 0.1882353, 0.1882353, 1)
 position = Vector2(0, 1000)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1840187035]
-position = Vector2(960, 27.5)
+position = Vector2(960, 30)
 shape = SubResource("RectangleShape2D_xfvny")
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D2" unique_id=1051804607 groups=["soft_material"]]
+visible = false
 offset_left = 1.0
 offset_top = -6.0
 offset_right = 1929.0
@@ -99,10 +104,9 @@ shape = SubResource("RectangleShape2D_xfvny")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1644831682]
 layer = 50
 
-[node name="PauseButton" type="Button" parent="HUD" unique_id=1677649347]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -8.0
-offset_bottom = 8.0
-grow_horizontal = 0
+[node name="PauseButton" type="TextureButton" parent="HUD" unique_id=28986406]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 202.0
+offset_bottom = 204.0
+texture_normal = ExtResource("14_8ao5r")

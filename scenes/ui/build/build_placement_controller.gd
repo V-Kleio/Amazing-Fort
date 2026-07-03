@@ -19,8 +19,8 @@ const FURNITURE_OVERLAP_MASK: int = 1 << 4
 
 var arena: Node2D
 var inventory_bar: Control
-var play_button: Button
-var delete_button: Button
+var play_button: TextureButton
+var delete_button: TextureButton
 
 var _state: State = State.IDLE
 var _held_piece: PlaceableEntity = null
@@ -172,7 +172,19 @@ func _select(piece: PlaceableEntity) -> void:
 		_ring.visible = false
 	if delete_button != null:
 		delete_button.show()
+		_position_delete_button()
 	_state = State.SELECTED
+
+## Pop the delete icon beside the selected piece (top-right corner). World coords == screen
+## coords (no camera), so the piece's global_position maps directly onto the CanvasLayer button.
+func _position_delete_button() -> void:
+	if delete_button == null or _selected == null:
+		return
+	var radius: float = _selected.get_ring_radius()
+	var anchor: Vector2 = _selected.global_position + Vector2(radius * 0.7, -radius * 0.7)
+	delete_button.global_position = anchor - delete_button.size * 0.5
+	UIJuice.center_pivot(delete_button)
+	UIJuice.pop_in(delete_button, 0.0, 0.2, 0.6, true)
 
 func _deselect() -> void:
 	_selected = null

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cfeepohgtwxyl"]
+
+[ext_resource type="Script" uid="uid://cxu0gugtlrr0x" path="res://scenes/ui/defend_transition.gd" id="1_ayatr"]
+[ext_resource type="Texture2D" uid="uid://csdl2n22x2u24" path="res://assets/visual/draft/Boons Background.png" id="1_su2yg"]
+[ext_resource type="Texture2D" uid="uid://b04g5aga77obu" path="res://assets/visual/defend/pink.png" id="2_6eb42"]
+[ext_resource type="Texture2D" uid="uid://bg6g00jk3jiud" path="res://assets/visual/defend/bocil transisi.png" id="3_ayatr"]
+[ext_resource type="Texture2D" uid="uid://dxtiisud552x6" path="res://assets/visual/defend/I’m gonna kill you.png" id="5_lrs4b"]
+[ext_resource type="Texture2D" uid="uid://nbxl37fm14yr" path="res://assets/visual/defend/Peepare yourself.png" id="6_ayatr"]
+
+[node name="DefendTransition" type="CanvasLayer" unique_id=1581940657]
+layer = 80
+script = ExtResource("1_ayatr")
+
+[node name="Root" type="Control" parent="." unique_id=1547976273]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Root" unique_id=289195946]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_su2yg")
+
+[node name="Triangle" type="TextureRect" parent="Root" unique_id=997931205]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_6eb42")
+
+[node name="Character" type="TextureRect" parent="Root" unique_id=1971282678]
+layout_mode = 0
+offset_right = 955.0
+offset_bottom = 1081.0
+texture = ExtResource("3_ayatr")
+
+[node name="SpeechBubble" type="TextureRect" parent="Root" unique_id=146751434]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("5_lrs4b")
+
+[node name="Title" type="TextureRect" parent="Root" unique_id=885918261]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -370.0
+offset_right = 760.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_ayatr")

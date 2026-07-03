@@ -27,6 +27,11 @@ extends Resource
 @export var durability: float = 100.0
 ## If true, the piece won't spin once physics activates.
 @export var rotation_locked_in_combat: bool = false
+## If true, the piece stays fixed in combat (a static obstacle) instead of falling.
+@export var anchored_in_combat: bool = false
+## Optional group the piece joins in combat so the ball reacts to it, e.g.
+## &"hard_material" (bouncier) or &"soft_material" (dampens). Empty = neutral.
+@export var combat_material_group: StringName = &""
 
 @export_group("Build")
 ## Whether the rotation ring is offered for this piece during Build.

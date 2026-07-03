@@ -15,15 +15,17 @@ extends Node2D
 @export var settings_scene: PackedScene
 ## Background track for gameplay; crossfades in (leave empty until you have audio assets).
 @export var gameplay_music: AudioStream
+## Comic-book splash shown between Build and Attack (optional; graceful fallback if unassigned).
+@export var transition_scene: PackedScene
 
 ## Bottom-center of the 1920x1080 design space (no camera → world coords == screen coords).
-const KID_POSITION: Vector2 = Vector2(960.0, 980.0)
+const KID_POSITION: Vector2 = Vector2(960.0, 870.0)
 
 @onready var phase_container: Node = $PhaseContainer
 @onready var spawn_left: Marker2D = $SpawnPointLeft
 @onready var spawn_right: Marker2D = $SpawnPointRight
 ## Optional in-game pause button (added to the editor HUD; safe if absent).
-@onready var _pause_button: Button = get_node_or_null(^"HUD/PauseButton")
+@onready var _pause_button: TextureButton = get_node_or_null(^"HUD/PauseButton")
 
 var current_phase_node: Node = null
 var attacker_instance: Node = null
@@ -88,6 +90,28 @@ func _load_phase(scene: PackedScene) -> void:
 	current_phase_node = scene.instantiate()
 	phase_container.add_child(current_phase_node)
 
+## Build → Attack handoff: play the transition curtain, swap phases behind it, activate
+## furniture physics on reveal, then start the attacker. Falls back cleanly with no curtain.
+func _run_build_to_attack() -> void:
+	var curtain: DefendTransition = null
+	if transition_scene != null:
+		curtain = transition_scene.instantiate() as DefendTransition
+	if curtain != null:
+		add_child(curtain)
+		await curtain.covered
+	await _load_phase(attacking_phase_scene)
+	if curtain != null:
+		await curtain.finished
+	_activate_furniture_physics()
+	if attacker_instance and is_instance_valid(attacker_instance):
+		attacker_instance.start_attack_phase()
+
+## Unfreeze every placed piece so it obeys gravity/collisions in combat (per EntityData).
+func _activate_furniture_physics() -> void:
+	for piece in get_tree().get_nodes_in_group(&"placeable"):
+		if piece.has_method("activate_physics"):
+			piece.activate_physics()
+
 func _on_phase_finished(phase_name: String) -> void:
 	match phase_name:
 		"choosing":
@@ -96,8 +120,7 @@ func _on_phase_finished(phase_name: String) -> void:
 			_spawn_attacker()
 		"building":
 			GameManager.current_phase = GameManager.Phase.ATTACKING
-			_load_phase(attacking_phase_scene)
-			attacker_instance.start_attack_phase()
+			await _run_build_to_attack()
 		"attacking_win":
 			_cleanup_attacker()
 			_load_result_screen(true) # <-- Panggil result screen dengan status MENANG (true)

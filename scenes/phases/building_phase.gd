@@ -16,8 +16,8 @@ extends Node2D
 @export var inventory_slot_scene: PackedScene
 
 @onready var _inventory_bar: HBoxContainer = $CanvasLayer/Control/InventoryBar
-@onready var _play_button: Button = $CanvasLayer/Control/PlayButton
-@onready var _delete_button: Button = $CanvasLayer/Control/DeleteButton
+@onready var _play_button: TextureButton = $CanvasLayer/Control/PlayButton
+@onready var _delete_button: TextureButton = $CanvasLayer/Control/DeleteButton
 
 var _controller: BuildPlacementController = null
 

@@ -50,6 +50,9 @@ func _apply_data() -> void:
 	material.friction = data.friction
 	material.bounce = data.bounciness
 	physics_material_override = material
+	# Optional group so the ball's bounce logic reacts to this piece in combat.
+	if data.combat_material_group != &"":
+		add_to_group(data.combat_material_group)
 
 # --- Build-phase API -------------------------------------------------------
 
@@ -85,6 +88,12 @@ func get_ring_radius() -> float:
 func activate_physics() -> void:
 	_overlap_area.set_deferred("monitoring", false)
 	_overlap_area.set_deferred("monitorable", false)
+	if data != null and data.anchored_in_combat:
+		# Stays put: a static obstacle projectiles bounce off, but it won't fall.
+		freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
+		freeze = true
+		return
+	# Default: dynamic — falls, collides, and gets knocked around by projectiles.
 	if data != null:
 		gravity_scale = data.gravity_scale
 		lock_rotation = data.rotation_locked_in_combat
