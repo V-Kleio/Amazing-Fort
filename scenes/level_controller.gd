@@ -100,16 +100,25 @@ func _on_phase_finished(phase_name: String) -> void:
 			attacker_instance.start_attack_phase()
 		"attacking_win":
 			_cleanup_attacker()
-			_load_win_screen()
+			_load_result_screen(true) # <-- Panggil result screen dengan status MENANG (true)
 		"attacking_lose":
-			GameManager.end_game_lose()
+			_cleanup_attacker()
+			_load_result_screen(false)
 
-func _load_win_screen() -> void:
+func _load_result_screen(is_win: bool) -> void:
 	if current_phase_node and is_instance_valid(current_phase_node):
 		current_phase_node.queue_free()
 		await get_tree().process_frame
-	var win: Node = win_screen_scene.instantiate()
-	phase_container.add_child(win)
+		
+	var result_screen: Node = win_screen_scene.instantiate()
+	
+	# Kita panggil fungsi setup() yang udah kita buat di skrip WinScreen sebelumnya
+	if result_screen.has_method("setup"):
+		result_screen.setup(is_win)
+		
+	phase_container.add_child(result_screen)
+	
+	# Kalau mau game over beneran pas kalah, kamu bisa atur di WinScreen.gd pas tombol diklik
 	GameEvents.try_connect(GameEvents.round_started, _on_round_continued)
 
 func _on_round_continued(_round_number: int) -> void:

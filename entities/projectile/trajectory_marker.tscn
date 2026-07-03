@@ -7,5 +7,6 @@
 script = ExtResource("1_gexry")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1014176698]
+texture_repeat = 2
 texture = ExtResource("1_dubww")
 texture_mode = 1

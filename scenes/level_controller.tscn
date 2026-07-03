@@ -59,14 +59,14 @@ offset_right = 1920.0
 offset_bottom = 64.0
 color = Color(0.1882353, 0.1882353, 0.1882353, 1)
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1314803831 groups=["hard_material"]]
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1314803831 groups=["soft_material"]]
 position = Vector2(0, 1000)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1840187035]
 position = Vector2(960, 27.5)
 shape = SubResource("RectangleShape2D_xfvny")
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D2" unique_id=1051804607]
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2" unique_id=1051804607 groups=["soft_material"]]
 offset_left = 1.0
 offset_top = -6.0
 offset_right = 1929.0

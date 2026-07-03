@@ -10,6 +10,7 @@ signal level_completed_after_phone_close(level_id: String)
 signal level_selected(level_id: String)
 signal level_completed(level_id: String)
 signal game_paused(is_paused: bool)
+signal ball_stopped
 
 ## Roguelite phase signals
 signal phase_finished(phase_name: String)

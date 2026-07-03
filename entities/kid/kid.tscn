@@ -3,12 +3,16 @@
 [ext_resource type="Script" uid="uid://fg5donaen1yk" path="res://entities/kid/kid.gd" id="1_2g5ci"]
 [ext_resource type="Texture2D" uid="uid://cqml1l0o4gu6w" path="res://assets/visual/Bocil Build Mode.png" id="2_2g5ci"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1y7ry"]
-size = Vector2(207, 262)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2g5ci"]
+radius = 102.0
+height = 250.0
 
-[node name="Kid" type="Area2D" unique_id=1658431837]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4s02n"]
+radius = 121.0
+height = 288.0
+
+[node name="Kid" type="StaticBody2D" unique_id=1658431837]
 collision_layer = 4
-collision_mask = 8
 script = ExtResource("1_2g5ci")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=620390063]
@@ -18,4 +22,12 @@ texture = ExtResource("2_2g5ci")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1796984748]
 position = Vector2(0, -5)
-shape = SubResource("RectangleShape2D_1y7ry")
+shape = SubResource("CapsuleShape2D_2g5ci")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1663096022]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1086105735]
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_4s02n")
