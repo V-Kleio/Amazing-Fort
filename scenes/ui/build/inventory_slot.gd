@@ -48,6 +48,8 @@ func refund() -> void:
 func _refresh() -> void:
 	_count.text = str(remaining)
 	disabled = remaining <= 0
+	# Depleted slots vanish entirely (the HBox reflows); reappear on refund.
+	visible = remaining > 0
 
 func _on_button_down() -> void:
 	if remaining > 0 and _option != null:

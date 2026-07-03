@@ -54,3 +54,7 @@ func _input(event: InputEvent) -> void:
 			resolve_win()
 		elif event.keycode == KEY_L:
 			resolve_lose()
+
+# Safety no-op: the .tscn still wires a hidden ContinueButton.pressed to this method.
+func _on_continue_pressed() -> void:
+	pass

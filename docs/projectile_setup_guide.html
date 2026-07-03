@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazing Fort — Projectile (Plushie) Setup</title>
+<style>
+  :root{--bg:#12131a;--panel:#1b1d27;--panel2:#22252f;--ink:#e7e9ee;--muted:#9aa0ad;--accent:#5b8cff;--green:#5ad17a;--amber:#f0b429;--border:#2f333f;--code:#0e0f15;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;padding:0 0 80px}
+  header{background:linear-gradient(135deg,#2a2033,#141620);padding:36px 24px;border-bottom:1px solid var(--border)}
+  .wrap{max-width:900px;margin:0 auto;padding:0 24px}
+  h1{margin:0 0 6px;font-size:28px} h2{margin:36px 0 12px;font-size:22px;border-bottom:1px solid var(--border);padding-bottom:8px}
+  .sub{color:var(--muted);font-size:15px}
+  p{margin:10px 0} ol,ul{margin:10px 0 10px 4px;padding-left:22px} li{margin:7px 0}
+  code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;color:#cdd6f4}
+  .step{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .step .n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;margin-right:10px;font-size:15px}
+  .note{border-left:4px solid var(--accent);background:var(--panel2);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .ok{border-left:4px solid var(--green);background:#152616;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+  th,td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top} th{background:var(--panel2);color:var(--accent)}
+  .path{color:var(--green)} kbd{background:#2a2d38;border:1px solid #3a3e4b;border-bottom-width:2px;border-radius:5px;padding:1px 7px;font-size:12.5px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Projectile (Plushie) Setup</h1><div class="sub">Amazing Fort · randomized plushie sprite + reticle</div></div></header>
+<div class="wrap">
+
+  <div class="ok"><strong>Working now with no editor step:</strong> the reticle icon is scaled down (no more giant sprite),
+  the dotted arc is gone, the ball aims at the Kid, the ball settles correctly, and win/lose result screens work
+  (Continue advances or returns to menu). Until you assign plushies, the ball keeps using its default sprite.</div>
+
+  <h2><span class="n">1</span>Import the 5 plushie sprites</h2>
+  <div class="step">
+    <ol>
+      <li>Drop the 5 plushie PNGs into e.g. <code class="path">res://assets/visual/projectile/</code> (any names).</li>
+      <li>They can be different native sizes — the code scales each to a consistent on-screen size.</li>
+    </ol>
+  </div>
+
+  <h2><span class="n">2</span>Assign them on the Attacker</h2>
+  <div class="step">
+    <ol>
+      <li>Open <code class="path">res://entities/attacker/attacker.tscn</code>, select the <code>Attacker</code> root.</li>
+      <li>Inspector → <strong>Projectile Sprites</strong> → set the array size to 5 and drop each plushie texture in.</li>
+      <li>Each round it picks one at random and uses it for <strong>both</strong> the reticle icon and the fired ball (they always match).</li>
+    </ol>
+  </div>
+
+  <h2><span class="n">3</span>Tune (optional)</h2>
+  <table>
+    <tr><th>Export (on Attacker)</th><th>Meaning</th></tr>
+    <tr><td><code>Icon Max Size</code></td><td>Largest on-screen size (px) of the reticle icon. Default 130.</td></tr>
+    <tr><td><code>Projectile Display Size</code></td><td>On-screen size (px) the fired ball is scaled to. Default 120 (matches the ~76px collider).</td></tr>
+    <tr><td><code>Aim Spread Deg</code></td><td>Random aim wobble around straight-at-Kid. Default 8°.</td></tr>
+    <tr><td><code>Launch Sfx</code> / (Ball) <code>Impact Sfx</code></td><td>Optional sounds; silent until assigned.</td></tr>
+  </table>
+  <div class="note">The reticle's <code>Arrow</code> art should point <strong>down</strong> at rotation 0 (it's rotated to aim).
+  If you want the red ring back, add a <code>Circle</code> Sprite2D behind <code>ProjectileIcon</code> — it's optional and not required by the code.</div>
+
+  <h2>Verify</h2>
+  <ol>
+    <li>Reticle shows a small plushie icon; no dotted arc; icon + fired ball are the same plushie and vary across rounds.</li>
+    <li>Ball flies at the Kid, bounces, and comes to rest → round resolves (no mid-air freeze, no endless bounce).</li>
+    <li>Win → result screen → Continue → next round. Lose (Kid takes 3 hits) → "Defeated" → Continue → main menu.</li>
+  </ol>
+</div>
+</body>
+</html>

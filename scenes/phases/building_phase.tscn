@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b106y2enwviov" path="res://scenes/phases/building_phase.gd" id="1_oksue"]
 [ext_resource type="PackedScene" uid="uid://bril22mrg5lou" path="res://scenes/ui/build/inventory_slot.tscn" id="2_knypl"]
+[ext_resource type="Texture2D" uid="uid://dnuqh7l0ju637" path="res://assets/visual/build/hitam inventory.png" id="3_1uaw3"]
 [ext_resource type="Texture2D" uid="uid://davqefcs4an27" path="res://assets/visual/build/Play.PNG" id="3_ga3dk"]
+[ext_resource type="Texture2D" uid="uid://bpvd6rxbrb50c" path="res://assets/visual/build/Inventory.png" id="4_1uaw3"]
 [ext_resource type="Texture2D" uid="uid://iv4xfxjabp14" path="res://assets/visual/build/sampah.png" id="4_gibdf"]
 
 [node name="BuildingPhase" type="Node2D" unique_id=1495787476]
@@ -20,7 +22,29 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="InventoryBar" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1970961964]
+[node name="InventoryTray" type="Control" parent="CanvasLayer/Control" unique_id=1569784876]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BarBackground" type="TextureRect" parent="CanvasLayer/Control/InventoryTray" unique_id=1492868656]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -279.0
+offset_top = -144.0
+offset_right = 220.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_1uaw3")
+
+[node name="InventoryBar" type="HBoxContainer" parent="CanvasLayer/Control/InventoryTray" unique_id=1970961964]
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 1
 anchors_preset = 12
@@ -32,6 +56,21 @@ grow_vertical = 0
 mouse_filter = 0
 theme_override_constants/separation = 16
 alignment = 1
+
+[node name="InventoryToggle" type="TextureButton" parent="CanvasLayer/Control" unique_id=1302478978]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -201.0
+offset_top = -203.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("4_1uaw3")
 
 [node name="PlayButton" type="TextureButton" parent="CanvasLayer/Control" unique_id=1537128783]
 custom_minimum_size = Vector2(100, 100)

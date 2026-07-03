@@ -54,6 +54,7 @@ func begin_spawn(option: DraftOption, slot: InventorySlot) -> void:
 		return
 	arena.add_child(piece)
 	piece.global_position = _pointer_world()
+	piece.play_spawn_pop()
 	_piece_to_slot[piece] = slot
 	_begin_drag(piece, true)
 
@@ -144,6 +145,7 @@ func _delete_selected() -> void:
 func _commit_held() -> void:
 	var piece: PlaceableEntity = _held_piece
 	piece.clear_tint()
+	piece.play_commit_pop()
 	if _held_is_new:
 		var slot: InventorySlot = _piece_to_slot.get(piece) as InventorySlot
 		if slot != null:

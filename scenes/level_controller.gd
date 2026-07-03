@@ -17,9 +17,13 @@ extends Node2D
 @export var gameplay_music: AudioStream
 ## Comic-book splash shown between Build and Attack (optional; graceful fallback if unassigned).
 @export var transition_scene: PackedScene
+## Heart sprite for the Kid's health display (optional; a drawn placeholder shows if empty).
+@export var health_heart_texture: Texture2D
 
 ## Bottom-center of the 1920x1080 design space (no camera → world coords == screen coords).
 const KID_POSITION: Vector2 = Vector2(960.0, 870.0)
+## Local offset of the hearts above the Kid's head.
+const HEARTS_OFFSET: Vector2 = Vector2(0.0, -420.0)
 
 @onready var phase_container: Node = $PhaseContainer
 @onready var spawn_left: Marker2D = $SpawnPointLeft
@@ -39,8 +43,17 @@ func _ready() -> void:
 
 	if _pause_button != null:
 		_pause_button.pressed.connect(_on_pause_pressed)
+		# ALWAYS so the release tween still runs after pressing it pauses the tree.
+		_pause_button.process_mode = Node.PROCESS_MODE_ALWAYS
+		_setup_pause_juice()
 
 	_show_tutorial_if_needed()
+
+## Press feedback for the pause button (deferred a frame so its size/pivot are valid).
+func _setup_pause_juice() -> void:
+	await get_tree().process_frame
+	UIJuice.center_pivot(_pause_button)
+	UIJuice.press_scale(_pause_button)
 
 func _show_tutorial_if_needed() -> void:
 	if not SaveManager.is_tutorial_completed():
@@ -77,6 +90,10 @@ func _ensure_arena() -> void:
 		var kid: Node2D = kid_scene.instantiate()
 		arena.add_child(kid)
 		kid.global_position = KID_POSITION
+		var hearts: HealthDisplay = HealthDisplay.new()
+		hearts.heart_texture = health_heart_texture
+		hearts.position = HEARTS_OFFSET
+		kid.add_child(hearts)
 
 ## Accessor for phases that prefer a direct reference over the &"arena" group lookup.
 func get_arena() -> Node2D:
@@ -150,6 +167,10 @@ func _on_round_continued(_round_number: int) -> void:
 	_load_phase(choosing_phase_scene)
 
 func _on_game_over() -> void:
+	# During combat, let the Kid's death resolve via the Defeated result screen
+	# ("attacking_lose" → _load_result_screen(false)) instead of racing to the menu.
+	if GameManager.current_phase == GameManager.Phase.ATTACKING:
+		return
 	SceneManager.load_main_menu()
 
 ## Pause the game and open the settings overlay (unpauses on close).

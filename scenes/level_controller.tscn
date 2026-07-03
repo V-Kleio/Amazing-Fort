@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://daurk5p8dx36g" path="res://assets/audio/Fun Puzzle Quest! Calm Puzzle Game Music by HeatleyBros.mp3" id="10_lhxab"]
 [ext_resource type="PackedScene" uid="uid://cfeepohgtwxyl" path="res://scenes/ui/defend_transition.tscn" id="11_4gnvc"]
 [ext_resource type="Texture2D" uid="uid://cnsvptgc45od7" path="res://assets/visual/Border.PNG" id="11_lhxab"]
+[ext_resource type="Texture2D" uid="uid://ddkcrx0dpw5p1" path="res://assets/visual/defend/health indicator.png" id="12_ocv84"]
 [ext_resource type="Texture2D" uid="uid://w1korhhtidej" path="res://assets/visual/build/Settings.PNG" id="14_8ao5r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
@@ -30,6 +31,7 @@ kid_scene = ExtResource("8_eegx8")
 settings_scene = ExtResource("9_stgs")
 gameplay_music = ExtResource("10_lhxab")
 transition_scene = ExtResource("11_4gnvc")
+health_heart_texture = ExtResource("12_ocv84")
 
 [node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
 

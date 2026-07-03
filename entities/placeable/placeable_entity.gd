@@ -26,11 +26,16 @@ var durability: float = 100.0
 
 ## Real-time overlap count driven by OverlapArea signals (freeze-independent, not stale).
 var _overlap_count: int = 0
+## Sprite's authored scale, captured so juice pops can return to it.
+var _base_sprite_scale: Vector2 = Vector2.ONE
 
 func _ready() -> void:
 	add_to_group(&"placeable")
 	input_pickable = false
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+	# Also collide with the Kid (layer 3) so pieces rest against it instead of passing through.
+	set_collision_mask_value(3, true)
+	_base_sprite_scale = _sprite.scale
 	_overlap_area.area_entered.connect(_on_overlap_added)
 	_overlap_area.area_exited.connect(_on_overlap_removed)
 	_overlap_area.body_entered.connect(_on_overlap_added)
@@ -77,9 +82,28 @@ func get_ring_radius() -> float:
 	if data != null and data.ring_radius > 0.0:
 		return data.ring_radius
 	if _sprite != null and _sprite.texture != null:
-		var extents: Vector2 = _sprite.texture.get_size() * _sprite.scale.abs() * 0.5
+		var extents: Vector2 = _sprite.texture.get_size() * _base_sprite_scale.abs() * 0.5
 		return maxf(extents.x, extents.y) * 1.25
 	return 120.0
+
+# --- Juice -----------------------------------------------------------------
+
+## Pop the sprite in from small (called when a piece is freshly spawned).
+func play_spawn_pop() -> void:
+	if _sprite == null:
+		return
+	_sprite.scale = _base_sprite_scale * 0.6
+	_sprite.create_tween().tween_property(_sprite, "scale", _base_sprite_scale, 0.25) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+## Quick squash-and-settle "thunk" (called when a piece is committed into place).
+func play_commit_pop() -> void:
+	if _sprite == null:
+		return
+	var tween: Tween = _sprite.create_tween()
+	_sprite.scale = _base_sprite_scale
+	tween.tween_property(_sprite, "scale", _base_sprite_scale * Vector2(1.18, 0.86), 0.07).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(_sprite, "scale", _base_sprite_scale, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 # --- Combat-phase handoff (called by the teammate's Combat phase) ----------
 
