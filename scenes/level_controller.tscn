@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="9_stgs"]
 [ext_resource type="Texture2D" uid="uid://bwxnran7i2o54" path="res://assets/visual/New living room background.PNG" id="10_bmpau"]
 [ext_resource type="Texture2D" uid="uid://cnsvptgc45od7" path="res://assets/visual/Border.PNG" id="11_lhxab"]
+[ext_resource type="AudioStream" uid="uid://daurk5p8dx36g" path="res://assets/audio/Fun Puzzle Quest! Calm Puzzle Game Music by HeatleyBros.mp3" id="10_lhxab"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
 size = Vector2(1940, 101.000046)
@@ -25,6 +26,7 @@ tutorial_scene = ExtResource("6_yupck")
 attacker_scene = ExtResource("7_xfvny")
 kid_scene = ExtResource("8_eegx8")
 settings_scene = ExtResource("9_stgs")
+gameplay_music = ExtResource("10_lhxab")
 
 [node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://daurk5p8dx36g"
+path="res://.godot/imported/Fun Puzzle Quest! Calm Puzzle Game Music by HeatleyBros.mp3-851e409f78afe6292c7933678b42026c.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Fun Puzzle Quest! Calm Puzzle Game Music by HeatleyBros.mp3"
+dest_files=["res://.godot/imported/Fun Puzzle Quest! Calm Puzzle Game Music by HeatleyBros.mp3-851e409f78afe6292c7933678b42026c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
