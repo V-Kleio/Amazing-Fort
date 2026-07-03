@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c17r4g7sthqsj" path="res://scenes/phases/attacking_phase.tscn" id="4_xfvny"]
 [ext_resource type="PackedScene" uid="uid://b6hpmtu45o5l3" path="res://scenes/ui/win_screen.tscn" id="5_t82cj"]
 [ext_resource type="PackedScene" uid="uid://du8obn4iwf61q" path="res://scenes/ui/tutorial.tscn" id="6_yupck"]
-[ext_resource type="PackedScene" uid="uid://cohhvlyoavg8m" path="res://entities/kid/kid.tscn" id="7_xfvny"]
 [ext_resource type="PackedScene" uid="uid://dge3m0jwaegge" path="res://entities/attacker/attacker.tscn" id="7_xfvny"]
+[ext_resource type="PackedScene" uid="uid://cohhvlyoavg8m" path="res://entities/kid/kid.tscn" id="8_eegx8"]
+[ext_resource type="Texture2D" uid="uid://balfge7krwn7y" path="res://assets/visual/Background living room.png" id="8_t82cj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
 size = Vector2(1940, 75)
@@ -19,10 +20,22 @@ building_phase_scene = ExtResource("3_yupck")
 attacking_phase_scene = ExtResource("4_xfvny")
 win_screen_scene = ExtResource("5_t82cj")
 tutorial_scene = ExtResource("6_yupck")
-kid_scene = ExtResource("7_xfvny")
 attacker_scene = ExtResource("7_xfvny")
+kid_scene = ExtResource("8_eegx8")
 
 [node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
+
+[node name="CanvasLayer" type="Control" parent="." unique_id=1807011775]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=405349356]
+layout_mode = 1
+texture = ExtResource("8_t82cj")
 
 [node name="SpawnPointLeft" type="Marker2D" parent="." unique_id=569268576]
 position = Vector2(300, 800)

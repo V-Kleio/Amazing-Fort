@@ -29,13 +29,12 @@ var _overlap_count: int = 0
 
 func _ready() -> void:
 	add_to_group(&"placeable")
-	input_pickable = false  # placement uses physics point queries, not CollisionObject picking
-
+	input_pickable = false
+	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 	_overlap_area.area_entered.connect(_on_overlap_added)
 	_overlap_area.area_exited.connect(_on_overlap_removed)
 	_overlap_area.body_entered.connect(_on_overlap_added)
 	_overlap_area.body_exited.connect(_on_overlap_removed)
-
 	_apply_data()
 	set_build_mode(true)
 
