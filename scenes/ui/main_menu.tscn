@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://s1h8yvrqxy42" path="res://scenes/ui/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://djgjsp08majiv" path="res://scenes/ui/credits.tscn" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="3_1g8jr"]
+[ext_resource type="AudioStream" uid="uid://bdqnoiyx70gyx" path="res://assets/audio/Game Item Store! Exciting Upbeat Game Music by HeatleyBros.mp3" id="4_m1kxf"]
 
 [node name="MainMenu" type="Control" unique_id=349406763]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchors_preset = 0
 script = ExtResource("1_l6cm7")
 credits_scene = ExtResource("2_ekxnf")
 settings_scene = ExtResource("3_1g8jr")
+menu_music = ExtResource("4_m1kxf")
 
 [node name="TitleLabel" type="Label" parent="." unique_id=1935086065]
 layout_mode = 0

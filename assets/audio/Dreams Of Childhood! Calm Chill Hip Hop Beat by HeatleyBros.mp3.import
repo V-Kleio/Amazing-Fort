@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://br062b75v65po"
+path="res://.godot/imported/Dreams Of Childhood! Calm Chill Hip Hop Beat by HeatleyBros.mp3-46743c9dc77eb39ce0152ebb88e3eead.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Dreams Of Childhood! Calm Chill Hip Hop Beat by HeatleyBros.mp3"
+dest_files=["res://.godot/imported/Dreams Of Childhood! Calm Chill Hip Hop Beat by HeatleyBros.mp3-46743c9dc77eb39ce0152ebb88e3eead.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
