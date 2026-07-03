@@ -1,11 +1,17 @@
 [gd_scene format=3 uid="uid://dge3m0jwaegge"]
 
+[ext_resource type="Script" uid="uid://cnp3urk3kkmwh" path="res://entities/attacker/attacker.gd" id="1_5e18x"]
 [ext_resource type="Texture2D" uid="uid://c4oovan1fv4t8" path="res://assets/visual/dummy/bocil_dummy.png" id="1_idmvc"]
+[ext_resource type="PackedScene" uid="uid://c5qliyfmlm3he" path="res://entities/projectile/ball.tscn" id="2_yid2j"]
+[ext_resource type="PackedScene" uid="uid://7013a203jx5e" path="res://entities/projectile/trajectory_marker.tscn" id="3_dgf0o"]
 
 [node name="Attacker" type="Node2D" unique_id=484477420]
+script = ExtResource("1_5e18x")
+ball_scene = ExtResource("2_yid2j")
+trajectory_marker_scene = ExtResource("3_dgf0o")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1490813278]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_idmvc")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1217886467]

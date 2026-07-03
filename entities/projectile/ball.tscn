@@ -3,14 +3,25 @@
 [ext_resource type="Texture2D" uid="uid://clvuqdxeptahc" path="res://assets/visual/dummy/ball_dummy.png" id="1_4pddj"]
 [ext_resource type="Script" uid="uid://duv1d006mbwdp" path="res://entities/projectile/ball.gd" id="1_ke534"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ke534"]
+friction = 0.0
+bounce = 1.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ke534"]
-radius = 127.01575
+radius = 38.013157
 
 [node name="Ball" type="RigidBody2D" unique_id=815598646]
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_ke534")
+gravity_scale = 0.1
 script = ExtResource("1_ke534")
+max_speed = 3000.0
+min_bounce_variance = 0.8
+max_bounce_variance = 1.0
+random_impulse_strength = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=477694560]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("1_4pddj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=940274125]
