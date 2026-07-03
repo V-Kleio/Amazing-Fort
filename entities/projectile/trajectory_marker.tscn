@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://7013a203jx5e"]
 
 [ext_resource type="Texture2D" uid="uid://c8fdosweaebn4" path="res://assets/visual/dummy/dot.png" id="1_dubww"]
+[ext_resource type="Script" uid="uid://bemml7ba1jn7k" path="res://entities/projectile/trajectory_marker.gd" id="1_gexry"]
 
 [node name="TrajectoryMarker" type="Node2D" unique_id=889093415]
+script = ExtResource("1_gexry")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1014176698]
 texture = ExtResource("1_dubww")

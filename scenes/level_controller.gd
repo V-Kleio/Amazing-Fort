@@ -5,6 +5,8 @@ extends Node2D
 @export var attacking_phase_scene: PackedScene
 @export var win_screen_scene: PackedScene
 @export var tutorial_scene: PackedScene
+@export var attacker_scene: PackedScene
+@export var spawn_offset_range: float = 50.0
 ## The child the player protects. Spawned once into the persistent Arena.
 @export var kid_scene: PackedScene
 ## Optional floor/walls (StaticBody2D) added to the Arena. Leave empty if not needed yet.
@@ -14,8 +16,11 @@ extends Node2D
 const KID_POSITION: Vector2 = Vector2(960.0, 980.0)
 
 @onready var phase_container: Node = $PhaseContainer
+@onready var spawn_left: Marker2D = $SpawnPointLeft
+@onready var spawn_right: Marker2D = $SpawnPointRight
 
 var current_phase_node: Node = null
+var attacker_instance: Node = null
 ## Persistent world that survives phase swaps: holds the Kid + all placed furniture.
 var arena: Node2D = null
 
@@ -77,10 +82,13 @@ func _on_phase_finished(phase_name: String) -> void:
 		"choosing":
 			GameManager.current_phase = GameManager.Phase.BUILDING
 			_load_phase(building_phase_scene)
+			_spawn_attacker()
 		"building":
 			GameManager.current_phase = GameManager.Phase.ATTACKING
 			_load_phase(attacking_phase_scene)
+			attacker_instance.start_attack_phase()
 		"attacking_win":
+			_cleanup_attacker()
 			_load_win_screen()
 		"attacking_lose":
 			GameManager.end_game_lose()
@@ -95,7 +103,31 @@ func _load_win_screen() -> void:
 
 func _on_round_continued(_round_number: int) -> void:
 	GameEvents.try_disconnect(GameEvents.round_started, _on_round_continued)
+	_cleanup_attacker()
 	_load_phase(choosing_phase_scene)
 
 func _on_game_over() -> void:
 	SceneManager.load_main_menu()
+	
+func _spawn_attacker() -> void:
+	if attacker_instance and is_instance_valid(attacker_instance):
+		return
+
+	attacker_instance = attacker_scene.instantiate()
+	add_child(attacker_instance)
+
+	var spawn_on_right: bool = randf() < 0.5
+	var base_point: Vector2 = spawn_right.global_position if spawn_on_right else spawn_left.global_position
+	var offset := Vector2(
+		randf_range(-spawn_offset_range, spawn_offset_range),
+		randf_range(-spawn_offset_range, spawn_offset_range)
+	)
+	attacker_instance.global_position = base_point + offset
+
+	attacker_instance.setup(spawn_on_right)
+
+func _cleanup_attacker() -> void:
+	if attacker_instance and is_instance_valid(attacker_instance):
+		attacker_instance.cleanup()
+		attacker_instance.queue_free()
+		attacker_instance = null
