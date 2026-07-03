@@ -42,12 +42,9 @@ func _on_hit(other: Node) -> void:
 	GameEvents.kid_damaged.emit(GameManager.player_health)
 	_play_hurt()
 	
-	# === PERUBAHAN DI SINI ===
-	# other.queue_free() -> DIHAPUS agar bola tidak hilang dan bisa memantul secara fisik!
-	
 	if GameManager.player_health <= 0:
 		_active = false
-		_is_invulnerable = true # Kunci agar tidak bisa kena hit lagi setelah mati
+		_is_invulnerable = true
 		died.emit()
 
 func _play_hurt() -> void:
