@@ -11,11 +11,14 @@ bounce = 1.0
 radius = 38.013157
 
 [node name="Ball" type="RigidBody2D" unique_id=815598646]
+z_index = 100
+collision_layer = 137
+collision_mask = 7
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_ke534")
 gravity_scale = 0.1
+continuous_cd = 1
 script = ExtResource("1_ke534")
-max_speed = 3000.0
 min_bounce_variance = 0.8
 max_bounce_variance = 1.0
 random_impulse_strength = 0.0
