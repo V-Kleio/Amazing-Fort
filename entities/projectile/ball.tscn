@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://c5qliyfmlm3he"]
 
 [ext_resource type="Texture2D" uid="uid://clvuqdxeptahc" path="res://assets/visual/dummy/ball_dummy.png" id="1_4pddj"]
+[ext_resource type="Script" uid="uid://duv1d006mbwdp" path="res://entities/projectile/ball.gd" id="1_ke534"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ke534"]
 radius = 127.01575
 
 [node name="Ball" type="RigidBody2D" unique_id=815598646]
+script = ExtResource("1_ke534")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=477694560]
 scale = Vector2(0.15, 0.15)
