@@ -5,7 +5,9 @@
 [ext_resource type="Theme" uid="uid://d041d5fl6lsgm" path="res://default_theme.tres" id="3_h175o"]
 [ext_resource type="Texture2D" uid="uid://dckv4rep50udy" path="res://assets/visual/settings/bulet slider.png" id="4_4xk3x"]
 [ext_resource type="Texture2D" uid="uid://bdrf0qqwx688q" path="res://assets/visual/settings/belakang slider.png" id="6_d4m38"]
+[ext_resource type="Texture2D" uid="uid://guanper1fdq4" path="res://assets/visual/settings/sound off toggle.png" id="6_jw8st"]
 [ext_resource type="FontFile" uid="uid://c21vq2bojxddj" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="6_ob3hf"]
+[ext_resource type="Texture2D" uid="uid://b3m28g7i3pbh0" path="res://assets/visual/settings/sound on toggle.png" id="7_d4m38"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ncfhn"]
 
@@ -99,11 +101,6 @@ theme = ExtResource("3_h175o")
 theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
 theme_override_font_sizes/font_size = 164
 text = "Settings"
-
-[node name="Panel" type="Panel" parent="Root/Panel/VBox" unique_id=1635196605]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 
 [node name="MasterRow" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=453161176]
 layout_mode = 2
@@ -206,6 +203,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ptynm")
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
+theme_override_icons/checked = ExtResource("6_jw8st")
+theme_override_icons/unchecked = ExtResource("7_d4m38")
 
 [node name="ResetTutorialButton" type="Button" parent="Root/Panel/VBox" unique_id=28050308]
 layout_mode = 2
