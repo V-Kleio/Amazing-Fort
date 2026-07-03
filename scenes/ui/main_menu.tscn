@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://s1h8yvrqxy42" path="res://scenes/ui/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://djgjsp08majiv" path="res://scenes/ui/credits.tscn" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="3_1g8jr"]
-[ext_resource type="Texture2D" uid="uid://b6wyh8af5wd4q" path="res://assets/visual/main_menu/Titlescreen background.png" id="4_m1kxf"]
+[ext_resource type="AudioStream" uid="uid://bdqnoiyx70gyx" path="res://assets/audio/Game Item Store! Exciting Upbeat Game Music by HeatleyBros.mp3" id="4_m1kxf"]
+[ext_resource type="Texture2D" uid="uid://b6wyh8af5wd4q" path="res://assets/visual/main_menu/Titlescreen background.png" id="5_q85j6"]
 [ext_resource type="Texture2D" uid="uid://dm2xk2880nx30" path="res://assets/visual/main_menu/Title .png" id="5_x2yvf"]
 [ext_resource type="Texture2D" uid="uid://npgpubl5jow7" path="res://assets/visual/main_menu/Titlescreen bocil 1 biar bisa di layer yeah gatau.png" id="6_uhagc"]
 [ext_resource type="Theme" uid="uid://d041d5fl6lsgm" path="res://default_theme.tres" id="7_btxxm"]
 [ext_resource type="Texture2D" uid="uid://b23ae5llnvut4" path="res://assets/visual/main_menu/start.png" id="7_wb0q5"]
-[ext_resource type="AudioStream" uid="uid://bdqnoiyx70gyx" path="res://assets/audio/Game Item Store! Exciting Upbeat Game Music by HeatleyBros.mp3" id="4_m1kxf"]
 
 [node name="MainMenu" type="Control" unique_id=349406763]
 layout_mode = 3
@@ -26,7 +26,7 @@ menu_music = ExtResource("4_m1kxf")
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("4_m1kxf")
+texture = ExtResource("5_q85j6")
 
 [node name="Title" type="TextureRect" parent="." unique_id=794761387]
 layout_mode = 0
