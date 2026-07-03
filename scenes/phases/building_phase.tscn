@@ -1,29 +1,45 @@
 [gd_scene format=3 uid="uid://bme66ykmheuu"]
 
 [ext_resource type="Script" uid="uid://b106y2enwviov" path="res://scenes/phases/building_phase.gd" id="1_oksue"]
+[ext_resource type="PackedScene" uid="uid://bril22mrg5lou" path="res://scenes/ui/build/inventory_slot.tscn" id="2_knypl"]
 
 [node name="BuildingPhase" type="Node2D" unique_id=1495787476]
 script = ExtResource("1_oksue")
+inventory_slot_scene = ExtResource("2_knypl")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=430975575]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=561952594]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="PhaseLabel" type="Label" parent="CanvasLayer/Control" unique_id=438013783]
+[node name="InventoryBar" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1970961964]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/Control" unique_id=1124191843]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Building Phase"
+offset_left = 115.0
+offset_right = 215.00009
+offset_bottom = 100.0
 
-[node name="ContinueButton" type="Button" parent="CanvasLayer/Control" unique_id=1986542941]
+[node name="DeleteButton" type="Button" parent="CanvasLayer/Control" unique_id=1125245557]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 0
-offset_top = 50.0
-offset_right = 79.0
-offset_bottom = 81.0
-text = "Continue"
-
-[connection signal="pressed" from="CanvasLayer/Control/ContinueButton" to="." method="_on_continue_pressed"]
+offset_right = 8.0
+offset_bottom = 8.0
