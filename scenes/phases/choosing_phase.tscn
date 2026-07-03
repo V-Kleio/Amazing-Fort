@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://ctnc6oe66rno8" path="res://scenes/phases/choosing_phase.gd" id="1_d1f2c"]
 [ext_resource type="PackedScene" uid="uid://ckbtoclv77wth" path="res://scenes/phases/draft_card.tscn" id="2_qvrb2"]
+[ext_resource type="Texture2D" uid="uid://csdl2n22x2u24" path="res://assets/visual/draft/Boons Background.png" id="3_uf7d0"]
+[ext_resource type="Texture2D" uid="uid://bevrs7gblkvw6" path="res://assets/visual/draft/Boons Bocil.png" id="4_piaj5"]
+[ext_resource type="Theme" uid="uid://d041d5fl6lsgm" path="res://default_theme.tres" id="5_44wol"]
 
 [node name="ChoosingPhase" type="Node2D" unique_id=512770483]
 script = ExtResource("1_d1f2c")
@@ -24,23 +27,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_uf7d0")
 
-[node name="Title" type="Label" parent="CanvasLayer/Control" unique_id=1885306743]
+[node name="Bocil" type="TextureRect" parent="CanvasLayer/Control" unique_id=510853458]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_piaj5")
+
+[node name="Title" type="Label" parent="CanvasLayer/Control" unique_id=1850987988]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -435.0
+offset_top = 63.0
+offset_right = 794.0
+offset_bottom = 206.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Roguelite Choosing Phase"
+theme = ExtResource("5_44wol")
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_font_sizes/font_size = 80
+text = "Title"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CardsContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=660453512]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -120.0
+offset_top = -80.0
+offset_right = -120.0
+offset_bottom = -80.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/separation = 32
 alignment = 1

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://balfge7krwn7y"
-path="res://.godot/imported/Background living room.png-4958ab151674db857f2d1665bb31b81a.ctex"
+uid="uid://5jt0flsdge7i"
+path="res://.godot/imported/Boons card (board).PNG-0d8de064fde1586a7eebafa2303284f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/visual/Background living room.png"
-dest_files=["res://.godot/imported/Background living room.png-4958ab151674db857f2d1665bb31b81a.ctex"]
+source_file="res://assets/visual/draft/Boons card (board).PNG"
+dest_files=["res://.godot/imported/Boons card (board).PNG-0d8de064fde1586a7eebafa2303284f4.ctex"]
 
 [params]
 

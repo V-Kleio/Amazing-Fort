@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://d041d5fl6lsgm"]
+
+[ext_resource type="FontFile" uid="uid://c21vq2bojxddj" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="1_e7bfs"]
+
+[resource]
+default_font = ExtResource("1_e7bfs")

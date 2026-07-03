@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_ref2f"]
 [ext_resource type="PackedScene" uid="uid://di8e108b30hpw" path="res://entities/placeable/placeable_entity.tscn" id="1_x76li"]
-[ext_resource type="Texture2D" uid="uid://d4il5k26wbqq1" path="res://assets/visual/Kursi utk pembatas building mode_”rg.png" id="2_x76li"]
+[ext_resource type="Texture2D" uid="uid://c34uco262e2jw" path="res://assets/visual/draft/ikon furnitur.png" id="2_x76li"]
 
 [resource]
 script = ExtResource("1_ref2f")
