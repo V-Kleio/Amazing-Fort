@@ -39,11 +39,51 @@ func save_data() -> void:
 		push_error("Failed to save data")
 
 func _init_defaults() -> void:
-	settings = {"tutorial_completed": false}
+	settings = {
+		"tutorial_completed": false,
+		"master_volume": 1.0,
+		"music_volume": 1.0,
+		"sfx_volume": 1.0,
+		"muted": false,
+	}
 
 func is_tutorial_completed() -> bool:
 	return settings.get("tutorial_completed", false)
 
 func complete_tutorial() -> void:
 	settings["tutorial_completed"] = true
+	save_data()
+
+func reset_tutorial() -> void:
+	settings["tutorial_completed"] = false
+	save_data()
+
+# --- Audio settings (0.0..1.0 linear volumes; missing keys fall back to defaults) ---
+
+func get_master_volume() -> float:
+	return settings.get("master_volume", 1.0)
+
+func set_master_volume(value: float) -> void:
+	settings["master_volume"] = value
+	save_data()
+
+func get_music_volume() -> float:
+	return settings.get("music_volume", 1.0)
+
+func set_music_volume(value: float) -> void:
+	settings["music_volume"] = value
+	save_data()
+
+func get_sfx_volume() -> float:
+	return settings.get("sfx_volume", 1.0)
+
+func set_sfx_volume(value: float) -> void:
+	settings["sfx_volume"] = value
+	save_data()
+
+func is_muted() -> bool:
+	return settings.get("muted", false)
+
+func set_muted(value: bool) -> void:
+	settings["muted"] = value
 	save_data()

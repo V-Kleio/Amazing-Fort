@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://c63jxqngpma6n"]
+
+[ext_resource type="Script" uid="uid://d3nsb4pvbq0aw" path="res://scenes/ui/settings.gd" id="1_8wfqe"]
+
+[node name="Settings" type="CanvasLayer" unique_id=1262314283]
+process_mode = 3
+layer = 90
+script = ExtResource("1_8wfqe")
+
+[node name="Root" type="Control" parent="." unique_id=1501490885]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Root" unique_id=269678517]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="PanelContainer" parent="Root" unique_id=1044692082]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/Panel" unique_id=1038705034]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" type="Label" parent="Root/Panel/VBox" unique_id=505906606]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+
+[node name="MasterRow" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=453161176]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="Root/Panel/VBox/MasterRow" unique_id=1836422283]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Master"
+
+[node name="MasterSlider" type="HSlider" parent="Root/Panel/VBox/MasterRow" unique_id=508644119]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="MusicRow" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=1479063138]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="Root/Panel/VBox/MusicRow" unique_id=127391291]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="Root/Panel/VBox/MusicRow" unique_id=1693977570]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="SfxRow" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=1251818183]
+layout_mode = 2
+
+[node name="SfxLabel" type="Label" parent="Root/Panel/VBox/SfxRow" unique_id=1016477407]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "SFX"
+
+[node name="SfxSlider" type="HSlider" parent="Root/Panel/VBox/SfxRow" unique_id=1692469430]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="MuteRow" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=606572409]
+layout_mode = 2
+
+[node name="MuteLabel" type="Label" parent="Root/Panel/VBox/MuteRow" unique_id=768396962]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Mute All"
+
+[node name="MuteToggle" type="CheckButton" parent="Root/Panel/VBox/MuteRow" unique_id=1210947577]
+layout_mode = 2
+
+[node name="ResetTutorialButton" type="Button" parent="Root/Panel/VBox" unique_id=28050308]
+layout_mode = 2
+text = "Replay Tutorial"
+
+[node name="CloseButton" type="Button" parent="Root/Panel/VBox" unique_id=1902284201]
+layout_mode = 2
+text = "Close"

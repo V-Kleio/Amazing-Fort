@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dge3m0jwaegge" path="res://entities/attacker/attacker.tscn" id="7_xfvny"]
 [ext_resource type="PackedScene" uid="uid://cohhvlyoavg8m" path="res://entities/kid/kid.tscn" id="8_eegx8"]
 [ext_resource type="Texture2D" uid="uid://balfge7krwn7y" path="res://assets/visual/Background living room.png" id="8_t82cj"]
+[ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="9_stgs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
 size = Vector2(1940, 75)
@@ -22,6 +23,7 @@ win_screen_scene = ExtResource("5_t82cj")
 tutorial_scene = ExtResource("6_yupck")
 attacker_scene = ExtResource("7_xfvny")
 kid_scene = ExtResource("8_eegx8")
+settings_scene = ExtResource("9_stgs")
 
 [node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
 
@@ -96,3 +98,14 @@ offset_top = -12.884033
 offset_right = 1092.6318
 offset_bottom = 64.47974
 color = Color(0.1882353, 0.1882353, 0.1882353, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1644831682]
+layer = 50
+
+[node name="PauseButton" type="Button" parent="HUD" unique_id=1677649347]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0

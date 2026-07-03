@@ -2,6 +2,11 @@ extends Control
 
 @export var credits_scene: PackedScene
 @export var settings_scene: PackedScene
+## Background track for the menu; crossfades in (leave empty until you have audio assets).
+@export var menu_music: AudioStream
+
+func _ready() -> void:
+	AudioManager.play_music(menu_music)
 
 func _on_start_pressed() -> void:
 	SceneManager.load_level_controller()

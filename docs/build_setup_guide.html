@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazing Fort — Build Phase Setup Guide</title>
+<style>
+  :root{
+    --bg:#12131a; --panel:#1b1d27; --panel2:#22252f; --ink:#e7e9ee; --muted:#9aa0ad;
+    --accent:#5b8cff; --green:#5ad17a; --amber:#f0b429; --red:#ff6b6b; --border:#2f333f; --code:#0e0f15;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:0 0 90px}
+  header{background:linear-gradient(135deg,#1d2233,#141620);padding:40px 24px;border-bottom:1px solid var(--border)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  h1{margin:0 0 6px;font-size:30px}
+  h2{margin:42px 0 12px;font-size:23px;border-bottom:1px solid var(--border);padding-bottom:8px}
+  h3{margin:24px 0 8px;font-size:18px;color:var(--accent)}
+  .sub{color:var(--muted);font-size:15px}
+  p{margin:10px 0}
+  ol,ul{margin:10px 0 10px 4px;padding-left:22px}
+  li{margin:7px 0}
+  code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:"JetBrains Mono",Consolas,monospace;
+    font-size:13px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--border);border-radius:10px;padding:14px 16px;overflow:auto}
+  pre code{background:none;padding:0}
+  .tree{background:var(--code);border:1px solid var(--border);border-radius:10px;padding:14px 18px;
+    font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;white-space:pre;overflow:auto;color:#b7f0c8}
+  .step{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .step .n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;margin-right:10px;font-size:15px}
+  .note{border-left:4px solid var(--accent);background:var(--panel2);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .warn{border-left:4px solid var(--amber);background:#2a2415;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .ok{border-left:4px solid var(--green);background:#152616;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+  th,td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--accent)}
+  .path{color:var(--green)}
+  .tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:20px;background:var(--panel2);
+    border:1px solid var(--border);color:var(--muted);margin-left:8px}
+  kbd{background:#2a2d38;border:1px solid #3a3e4b;border-bottom-width:2px;border-radius:5px;padding:1px 7px;font-size:12.5px}
+  .toc a{color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  hr{border:none;border-top:1px solid var(--border);margin:30px 0}
+  .layers span{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:6px;
+    background:var(--panel2);border:1px solid var(--border);margin:2px;font-size:12px}
+  .layers .on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Build Phase — Setup Guide</h1>
+    <div class="sub">Amazing Fort · Amazing-Alex-style furniture placement (editor steps)</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p>The build-phase <strong>logic</strong> is code-complete (placement state machine, Kid, inventory slot, persistent
+  Arena, rotation ring). What remains is done in the <strong>Godot editor</strong>: naming collision layers and building
+  the scenes/layouts these scripts drive. Do the steps in order.</p>
+
+  <div class="toc note">
+    <strong>Steps</strong>
+    <ol style="margin-bottom:0">
+      <li><a href="#s1">Name the collision layers</a> <span class="tag">do first</span></li>
+      <li><a href="#s2">Build the PlaceableEntity scene</a> (base furniture piece)</li>
+      <li><a href="#s3">Make an EntityData + a FurnitureDraftOption</a> (so furniture flows draft → bar)</li>
+      <li><a href="#s4">Build the Kid scene</a></li>
+      <li><a href="#s5">Build the InventorySlot scene</a></li>
+      <li><a href="#s6">Rebuild the Building-phase layout</a></li>
+      <li><a href="#s7">Wire level_controller</a> (kid_scene)</li>
+      <li><a href="#s8">Run &amp; verify</a></li>
+    </ol>
+  </div>
+
+  <div class="warn"><strong>Collision layer/mask notation:</strong> in the Inspector, <code>Collision → Layer</code> and
+  <code>Collision → Mask</code> are grids of numbered boxes. "layer = Furniture(2)" means tick <strong>only box 2</strong>.
+  "mask = 1,2,4" means tick boxes <strong>1, 2, and 4</strong>. The numbers come from Step 1.</div>
+
+  <!-- STEP 1 -->
+  <h2 id="s1"><span class="n">1</span>Name the collision layers</h2>
+  <p><kbd>Project</kbd> → <kbd>Project Settings…</kbd> → <strong>Layer Names</strong> → <strong>2D Physics</strong>. Set:</p>
+  <table>
+    <tr><th>Layer #</th><th>Name</th><th>Used by</th></tr>
+    <tr><td>1</td><td><code>Ground</code></td><td>Arena floor/walls (optional)</td></tr>
+    <tr><td>2</td><td><code>Furniture</code></td><td>PlaceableEntity physics body</td></tr>
+    <tr><td>3</td><td><code>Kid</code></td><td>The Kid trigger</td></tr>
+    <tr><td>4</td><td><code>Projectile</code></td><td>Enemy projectiles (your teammate's Combat work)</td></tr>
+    <tr><td>5</td><td><code>FurnitureOverlap</code></td><td>PlaceableEntity's build-time overlap probe</td></tr>
+  </table>
+
+  <!-- STEP 2 -->
+  <h2 id="s2"><span class="n">2</span>Build the PlaceableEntity scene</h2>
+  <p>This is the reusable furniture piece. Create it at <code class="path">res://entities/placeable/placeable_entity.tscn</code>.</p>
+  <div class="step">
+    <ol>
+      <li><kbd>Scene</kbd> → <kbd>New Scene</kbd> → <strong>Other Node</strong> → <code>RigidBody2D</code> as root; rename to <code>PlaceableEntity</code>.</li>
+      <li>Build this tree (names must match exactly):</li>
+    </ol>
+    <div class="tree">PlaceableEntity     (RigidBody2D)     &lt;- attach placeable_entity.gd
+ ├ Sprite2D          (Sprite2D)
+ ├ CollisionShape2D  (CollisionShape2D)   physics shape
+ └ OverlapArea       (Area2D)             build-time overlap probe
+    └ CollisionShape2D (CollisionShape2D) slightly larger than the body shape</div>
+  </div>
+
+  <h3>Root <code>PlaceableEntity</code> (RigidBody2D) properties</h3>
+  <table>
+    <tr><th>Property</th><th>Value</th></tr>
+    <tr><td>RigidBody2D → Freeze</td><td><strong>On</strong></td></tr>
+    <tr><td>RigidBody2D → Freeze Mode</td><td><code>Kinematic</code></td></tr>
+    <tr><td>RigidBody2D → Gravity Scale</td><td><code>0</code></td></tr>
+    <tr><td>CollisionObject2D → Input Pickable</td><td><strong>Off</strong> (unchecked)</td></tr>
+    <tr><td>Collision → <strong>Layer</strong></td><td>box <strong>2</strong> only (Furniture)</td></tr>
+    <tr><td>Collision → <strong>Mask</strong></td><td>boxes <strong>1, 2, 4</strong> (Ground + Furniture + Projectile)</td></tr>
+  </table>
+
+  <h3>Sprite2D + body CollisionShape2D</h3>
+  <ul>
+    <li><code>Sprite2D → Texture</code>: drag <code class="path">assets/visual/dummy/ball_dummy.png</code> (placeholder); set <code>Transform → Scale</code> = <code>(0.15, 0.15)</code> to match the project's other art.</li>
+    <li><code>CollisionShape2D → Shape</code>: <code>New RectangleShape2D</code> (or Circle) sized to roughly cover the visible sprite.</li>
+  </ul>
+
+  <h3>OverlapArea (Area2D) — the build-time overlap probe</h3>
+  <table>
+    <tr><th>Property</th><th>Value</th></tr>
+    <tr><td>Area2D → Monitoring</td><td><strong>On</strong></td></tr>
+    <tr><td>Area2D → Monitorable</td><td><strong>On</strong></td></tr>
+    <tr><td>Collision → <strong>Layer</strong></td><td>box <strong>5</strong> only (FurnitureOverlap)</td></tr>
+    <tr><td>Collision → <strong>Mask</strong></td><td>boxes <strong>1, 3, 5</strong> (Ground + Kid + FurnitureOverlap)</td></tr>
+    <tr><td>its child CollisionShape2D → Shape</td><td>same kind as the body shape, ~2px larger (a small "skin")</td></tr>
+  </table>
+  <div class="note">Why the extra layer: the OverlapArea (layer 5) sees <em>other</em> pieces' overlap areas + the Kid + the ground,
+  but its mask deliberately excludes <code>Furniture(2)</code> so it never trips on its own body. "No overlap" then guarantees
+  the solid bodies won't interpenetrate when your teammate unfreezes them in Combat.</div>
+
+  <div class="step">
+    <ol>
+      <li>Select the root → <strong>Attach Script</strong> → Load → <code class="path">res://entities/placeable/placeable_entity.gd</code>.</li>
+      <li>Save as <code class="path">res://entities/placeable/placeable_entity.tscn</code>.</li>
+    </ol>
+  </div>
+  <div class="note"><strong>More furniture types:</strong> duplicate this scene (FileSystem → right-click → Duplicate),
+  swap the Sprite2D texture + both collision shapes, and assign a different <code>EntityData</code> (next step). The
+  placement/inventory/Kid code needs no changes.</div>
+
+  <!-- STEP 3 -->
+  <h2 id="s3"><span class="n">3</span>Make an EntityData + a FurnitureDraftOption</h2>
+  <p>Furniture reaches the Build bar through the draft: a <code>FurnitureDraftOption</code> points at your placeable scene.</p>
+  <div class="step">
+    <ol>
+      <li><strong>EntityData</strong>: FileSystem → right-click <code class="path">res://data/entities/</code> → <kbd>Create New</kbd> → <kbd>Resource…</kbd> → <code>EntityData</code>. Set e.g. <code>mass=2</code>, <code>friction=0.7</code>, <code>bounciness=0.1</code>, <code>durability=100</code>, <code>can_rotate=On</code>. Save as <code class="path">data/entities/couch_cushion.tres</code>.</li>
+      <li>Open <code>placeable_entity.tscn</code>, select the root, and in the Inspector set <strong>Data</strong> = your EntityData <code>.tres</code>. Save. <span class="tag">or set Data on each duplicated furniture scene</span></li>
+      <li><strong>FurnitureDraftOption</strong>: right-click <code class="path">res://data/draft/options/</code> → New Resource → <code>FurnitureDraftOption</code>. Set: <code>display_name</code>, <code>icon</code> (e.g. <code>ball_dummy.png</code>), <code>quantity</code> = e.g. <code>3</code>, and <strong>Entity Scene</strong> = <code class="path">entities/placeable/placeable_entity.tscn</code>. Save as <code class="path">data/draft/options/couch_cushion_draft.tres</code>.</li>
+    </ol>
+  </div>
+  <div class="warn">Existing dummy furniture options have an empty <code>entity_scene</code> — they simply won't appear as slots
+  in the bar. Only options whose <code>entity_scene</code> is set produce a placeable slot.</div>
+
+  <!-- STEP 4 -->
+  <h2 id="s4"><span class="n">4</span>Build the Kid scene</h2>
+  <p>Create <code class="path">res://entities/kid/kid.tscn</code>.</p>
+  <div class="step">
+    <div class="tree">Kid                 (Area2D)          &lt;- attach kid.gd
+ ├ Sprite2D          (Sprite2D)         bocil_dummy.png, scale (0.15, 0.15)
+ ├ CollisionShape2D  (CollisionShape2D) RectangleShape2D (a box)
+ └ AudioStreamPlayer2D (optional)</div>
+  </div>
+  <table>
+    <tr><th>Node / Property</th><th>Value</th></tr>
+    <tr><td>Kid (Area2D) → Monitoring</td><td><strong>On</strong></td></tr>
+    <tr><td>Kid (Area2D) → Monitorable</td><td><strong>On</strong> (so furniture can't be placed on the Kid)</td></tr>
+    <tr><td>Kid → Collision → <strong>Layer</strong></td><td>box <strong>3</strong> only (Kid)</td></tr>
+    <tr><td>Kid → Collision → <strong>Mask</strong></td><td>box <strong>4</strong> only (Projectile)</td></tr>
+    <tr><td>Sprite2D → Texture / Scale</td><td><code class="path">assets/visual/dummy/bocil_dummy.png</code> / <code>(0.15,0.15)</code></td></tr>
+    <tr><td>CollisionShape2D → Shape</td><td>RectangleShape2D covering the sprite</td></tr>
+    <tr><td>(optional) hurt_sound on the root</td><td>assign an AudioStream; needs the AudioStreamPlayer2D child</td></tr>
+  </table>
+  <div class="step">Attach <code class="path">res://entities/kid/kid.gd</code> to the root, save.</div>
+
+  <!-- STEP 5 -->
+  <h2 id="s5"><span class="n">5</span>Build the InventorySlot scene</h2>
+  <p>The bar item widget. Create <code class="path">res://scenes/phases/build/inventory_slot.tscn</code>.</p>
+  <div class="step">
+    <div class="tree">InventorySlot       (Button)          &lt;- attach inventory_slot.gd
+ ├ Icon              (TextureRect)
+ └ Count             (Label)</div>
+    <ul>
+      <li><code>InventorySlot</code> (Button): <code>Custom Minimum Size</code> ≈ <code>(140, 140)</code>.</li>
+      <li><code>Icon</code> (TextureRect): anchors <code>Full Rect</code>; Expand Mode <code>Ignore Size</code>; Stretch <code>Keep Aspect Centered</code>.</li>
+      <li><code>Count</code> (Label): anchor bottom-right; font size ~28. Its text is set at runtime.</li>
+      <li>Attach <code class="path">scenes/phases/build/inventory_slot.gd</code>; save. (The script auto-sets the children to click-through, like DraftCard.)</li>
+    </ul>
+  </div>
+
+  <!-- STEP 6 -->
+  <h2 id="s6"><span class="n">6</span>Rebuild the Building-phase layout</h2>
+  <p>Open <code class="path">res://scenes/phases/building_phase.tscn</code> and reshape it into:</p>
+  <div class="tree">BuildingPhase       (Node2D)          &lt;- keeps building_phase.gd
+ └ CanvasLayer
+    └ Control        (full rect, Mouse Filter = Ignore)
+       ├ InventoryBar (HBoxContainer)  anchored bottom, Mouse Filter = Stop
+       ├ PlayButton   (Button)         text "Play", Mouse Filter = Stop
+       └ DeleteButton (Button)         text "Delete", Mouse Filter = Stop (starts hidden)</div>
+  <div class="step">
+    <ol>
+      <li>Select <code>Control</code> → Anchors Preset <code>Full Rect</code> → <strong>Mouse Filter = Ignore</strong> (so world taps reach the placement controller).</li>
+      <li><strong>Delete</strong> the old <code>PhaseLabel</code> and <code>ContinueButton</code> (removing the old <code>[connection]</code>).</li>
+      <li>Add <code>InventoryBar</code> (HBoxContainer): Anchors Preset <code>Bottom Wide</code>; give it some height/offset from the bottom; <code>Alignment = Center</code>; Theme Overrides → Constants → <code>Separation</code> ≈ 16; <strong>Mouse Filter = Stop</strong>.</li>
+      <li>Add <code>PlayButton</code> (Button, text "Play"), e.g. top-right; <strong>Mouse Filter = Stop</strong>.</li>
+      <li>Add <code>DeleteButton</code> (Button, text "Delete"), near Play; <strong>Mouse Filter = Stop</strong>. (Leave visible; the code hides it until a piece is selected.)</li>
+      <li>Select the root <code>BuildingPhase</code> → Inspector → <strong>Inventory Slot Scene</strong> = <code class="path">scenes/phases/build/inventory_slot.tscn</code>.</li>
+      <li>Save.</li>
+    </ol>
+  </div>
+  <div class="note">Node names <code>InventoryBar</code>, <code>PlayButton</code>, <code>DeleteButton</code> under <code>CanvasLayer/Control</code>
+  must match exactly — the script reads those paths.</div>
+
+  <!-- STEP 7 -->
+  <h2 id="s7"><span class="n">7</span>Wire level_controller</h2>
+  <div class="step">
+    <ol>
+      <li>Open <code class="path">res://scenes/level_controller.tscn</code>, select the <code>Level</code> root.</li>
+      <li>Inspector → <strong>Kid Scene</strong> = <code class="path">entities/kid/kid.tscn</code>.</li>
+      <li><em>(Optional)</em> <strong>Arena Bounds Scene</strong> = a StaticBody2D floor/walls scene (layer <code>Ground(1)</code>, mask empty). Leave empty for now if you don't have one.</li>
+      <li>Save.</li>
+    </ol>
+  </div>
+  <div class="note">The Arena is created in code as a persistent sibling of <code>PhaseContainer</code>; the Kid is spawned into it
+  once at bottom-center <code>(960, 980)</code>. It survives the Build→Combat swap so your teammate's Combat phase can find
+  placed furniture + the Kid via <code>get_tree().get_nodes_in_group("placeable")</code> and <code>"kid"</code>, then call
+  <code>PlaceableEntity.activate_physics()</code> on each piece.</div>
+
+  <!-- STEP 8 -->
+  <h2 id="s8"><span class="n">8</span>Run &amp; verify</h2>
+  <div class="step">
+    <ol>
+      <li><kbd>F5</kbd> → main menu → <strong>Start</strong> → skip/finish tutorial → draft your furniture option → <strong>Build phase</strong>.</li>
+      <li>The bottom bar shows a slot (icon + count = quantity). The Kid sits at bottom-center.</li>
+      <li><strong>Press &amp; hold a slot</strong> → a piece appears above the finger and follows it (upward offset).</li>
+      <li>Drag over the Kid or another piece → it turns <span style="color:var(--red)">red</span>; release → it <strong>stays held</strong>. Move to open space → <span style="color:var(--green)">green</span> → release → it places; the slot count drops by 1; a dotted <strong>rotation ring</strong> appears and the Delete button shows.</li>
+      <li>Drag around the ring → the piece rotates (free). Drag the piece body → move it. Tap <strong>Delete</strong> → piece removed, count restored.</li>
+      <li>Tap empty space → deselect. Bar/Play taps never spawn or move world pieces.</li>
+      <li>Press <strong>Play</strong> → Attacking loads; placed pieces + Kid persist (they're under the Arena). The Build UI + ring are gone.</li>
+    </ol>
+  </div>
+
+  <div class="ok"><strong>Optional — test the Kid hit path</strong> (Combat is your teammate's job, but you can smoke-test):
+  temporarily make a RigidBody2D, put it in group <code>&amp;"enemy_projectile"</code>, set its collision layer to
+  <code>Projectile(4)</code>, and drop it onto the Kid at runtime → <code>GameManager.player_health</code> drops by 1, the Kid
+  flashes red, the projectile is freed, and at 0 HP the game ends.</div>
+
+  <div class="warn"><strong>Desktop vs touch:</strong> the placement code handles mouse events, which also fire from touch
+  (the project's default <code>emulate_mouse_from_touch</code>). So mouse testing on desktop mirrors on-device touch.</div>
+
+  <hr>
+  <h2>Reference — files in this system</h2>
+  <table>
+    <tr><th>File</th><th>Role</th></tr>
+    <tr><td><code class="path">data/entities/entity_data.gd</code></td><td>EntityData: per-furniture physics/combat stats.</td></tr>
+    <tr><td><code class="path">entities/placeable/placeable_entity.gd</code> + <code>.tscn</code></td><td>The furniture piece (frozen in build, <code>activate_physics()</code> for combat).</td></tr>
+    <tr><td><code class="path">entities/kid/kid.gd</code> + <code>.tscn</code></td><td>The protected Kid (Area2D trigger, reuses GameManager HP).</td></tr>
+    <tr><td><code class="path">scenes/phases/build/build_placement_controller.gd</code></td><td>Spawn/drag/rotate/move/delete state machine.</td></tr>
+    <tr><td><code class="path">scenes/phases/build/rotation_ring.gd</code></td><td>Dotted rotation ring (code-drawn).</td></tr>
+    <tr><td><code class="path">scenes/phases/build/inventory_slot.gd</code> + <code>.tscn</code></td><td>Bottom-bar item (icon + count).</td></tr>
+    <tr><td><code class="path">scenes/phases/building_phase.gd</code> + <code>.tscn</code></td><td>Build orchestrator + layout.</td></tr>
+    <tr><td><code class="path">scenes/level_controller.gd</code></td><td>Owns the persistent Arena + spawns the Kid.</td></tr>
+    <tr><td><code class="path">autoloads/game_events.gd</code></td><td>Adds <code>furniture_placed</code>, <code>furniture_removed</code>, <code>kid_damaged</code>.</td></tr>
+  </table>
+
+</div>
+</body>
+</html>
