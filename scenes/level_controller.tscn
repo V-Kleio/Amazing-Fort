@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c17r4g7sthqsj" path="res://scenes/phases/attacking_phase.tscn" id="4_xfvny"]
 [ext_resource type="PackedScene" uid="uid://b6hpmtu45o5l3" path="res://scenes/ui/win_screen.tscn" id="5_t82cj"]
 [ext_resource type="PackedScene" uid="uid://du8obn4iwf61q" path="res://scenes/ui/tutorial.tscn" id="6_yupck"]
-[ext_resource type="PackedScene" uid="uid://cohhvlyoavg8m" path="res://entities/kid/kid.tscn" id="7_xfvny"]
 [ext_resource type="PackedScene" uid="uid://dge3m0jwaegge" path="res://entities/attacker/attacker.tscn" id="7_xfvny"]
+[ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="8_t82cj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
 size = Vector2(1940, 75)
@@ -19,8 +19,9 @@ building_phase_scene = ExtResource("3_yupck")
 attacking_phase_scene = ExtResource("4_xfvny")
 win_screen_scene = ExtResource("5_t82cj")
 tutorial_scene = ExtResource("6_yupck")
-kid_scene = ExtResource("7_xfvny")
 attacker_scene = ExtResource("7_xfvny")
+kid_scene = ExtResource("7_xfvny")
+settings_scene = ExtResource("8_t82cj")
 
 [node name="PhaseContainer" type="Node" parent="." unique_id=1687947388]
 
@@ -82,3 +83,14 @@ offset_top = -12.884033
 offset_right = 1092.6318
 offset_bottom = 64.47974
 color = Color(0.1882353, 0.1882353, 0.1882353, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1644831682]
+layer = 50
+
+[node name="PauseButton" type="Button" parent="HUD" unique_id=1677649347]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0

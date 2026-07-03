@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazing Fort — Audio & Settings Setup Guide</title>
+<style>
+  :root{
+    --bg:#12131a; --panel:#1b1d27; --panel2:#22252f; --ink:#e7e9ee; --muted:#9aa0ad;
+    --accent:#5b8cff; --green:#5ad17a; --amber:#f0b429; --border:#2f333f; --code:#0e0f15;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:0 0 90px}
+  header{background:linear-gradient(135deg,#1d2233,#141620);padding:40px 24px;border-bottom:1px solid var(--border)}
+  .wrap{max-width:940px;margin:0 auto;padding:0 24px}
+  h1{margin:0 0 6px;font-size:30px}
+  h2{margin:42px 0 12px;font-size:23px;border-bottom:1px solid var(--border);padding-bottom:8px}
+  h3{margin:24px 0 8px;font-size:18px;color:var(--accent)}
+  .sub{color:var(--muted);font-size:15px}
+  p{margin:10px 0}
+  ol,ul{margin:10px 0 10px 4px;padding-left:22px}
+  li{margin:7px 0}
+  code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:"JetBrains Mono",Consolas,monospace;
+    font-size:13px;color:#cdd6f4}
+  .tree{background:var(--code);border:1px solid var(--border);border-radius:10px;padding:14px 18px;
+    font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;white-space:pre;overflow:auto;color:#b7f0c8}
+  .step{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .step .n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:700;margin-right:10px;font-size:15px}
+  .note{border-left:4px solid var(--accent);background:var(--panel2);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .warn{border-left:4px solid var(--amber);background:#2a2415;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .ok{border-left:4px solid var(--green);background:#152616;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+  th,td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--accent)}
+  .path{color:var(--green)}
+  .tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:20px;background:var(--panel2);
+    border:1px solid var(--border);color:var(--muted);margin-left:8px}
+  kbd{background:#2a2d38;border:1px solid #3a3e4b;border-bottom-width:2px;border-radius:5px;padding:1px 7px;font-size:12.5px}
+  .toc a{color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  hr{border:none;border-top:1px solid var(--border);margin:30px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Audio &amp; Settings — Setup Guide</h1>
+    <div class="sub">Amazing Fort · global music/SFX + mobile settings menu (editor steps)</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p>The audio + settings <strong>logic</strong> is code-complete (AudioManager, Settings overlay, persistence, pause
+  wiring). What remains is done in the <strong>Godot editor</strong>: registering the autoload and building the
+  settings scene + pause button. Do the steps in order.</p>
+
+  <div class="toc note">
+    <strong>Steps</strong>
+    <ol style="margin-bottom:0">
+      <li><a href="#s1">Register the <code>AudioManager</code> autoload</a> <span class="tag">do first</span></li>
+      <li><a href="#s2">Create the audio bus layout</a> (Master / Music / SFX)</li>
+      <li><a href="#s3">Build the Settings scene</a></li>
+      <li><a href="#s4">Wire the main-menu Settings button</a></li>
+      <li><a href="#s5">Add the in-game pause button</a></li>
+      <li><a href="#s6">Add audio files &amp; assign music</a> (optional, when you have assets)</li>
+      <li><a href="#s7">Run &amp; verify</a></li>
+    </ol>
+  </div>
+
+  <div class="warn">Everything runs <strong>silently but error-free</strong> until you add audio files — the system is
+  built now; sound arrives when you drop in <code>.ogg</code>/<code>.wav</code> assets (Step 6).</div>
+
+  <!-- STEP 1 -->
+  <h2 id="s1"><span class="n">1</span>Register the <code>AudioManager</code> autoload</h2>
+  <div class="step">
+    <ol>
+      <li><kbd>Project</kbd> → <kbd>Project Settings…</kbd> → <strong>Globals / Autoload</strong> tab.</li>
+      <li><strong>Path</strong> = <code class="path">res://autoloads/audio_manager.gd</code>; <strong>Node Name</strong> = <code>AudioManager</code>.</li>
+      <li><strong>Add</strong>. It appears at the bottom of the list — which is <strong>after <code>SaveManager</code></strong>, exactly what we need (AudioManager reads saved volumes on ready). Leave it there.</li>
+    </ol>
+  </div>
+  <div class="note">The autoload list should read: GameEvents, GameManager, SaveManager, SceneManager, PlayerInventory, <strong>AudioManager</strong>.</div>
+
+  <!-- STEP 2 -->
+  <h2 id="s2"><span class="n">2</span>Create the audio bus layout</h2>
+  <p>This gives you separate <strong>Music</strong> and <strong>SFX</strong> volume control and makes the buses selectable in the editor.
+  (AudioManager also creates them at runtime, so this step is recommended but not strictly required.)</p>
+  <div class="step">
+    <ol>
+      <li>Open the <strong>Audio</strong> tab in the bottom panel. You'll see one <code>Master</code> bus.</li>
+      <li>Click <strong>Add Bus</strong> twice → two new buses appear. Double-click each name and rename to <code>Music</code> and <code>SFX</code>.</li>
+      <li>At the bottom of the <code>Music</code> bus strip there's a <strong>send</strong> dropdown — make sure it's set to <code>Master</code> (default). Same for <code>SFX</code>.</li>
+      <li>Top-right of the Audio panel → the layout menu → <strong>Save As…</strong> → save as <code class="path">res://default_bus_layout.tres</code> (Godot loads this automatically).</li>
+    </ol>
+  </div>
+
+  <!-- STEP 3 -->
+  <h2 id="s3"><span class="n">3</span>Build the Settings scene</h2>
+  <p>Create <code class="path">res://scenes/ui/settings.tscn</code>.</p>
+  <div class="step">
+    <ol>
+      <li><kbd>Scene</kbd> → <kbd>New Scene</kbd> → <strong>Other Node</strong> → <code>CanvasLayer</code> as root; rename to <code>Settings</code>.</li>
+      <li>Select <code>Settings</code> → set <strong>Layer = 90</strong> and <strong>Process → Mode = Always</strong>.</li>
+      <li>Build this tree (names must match exactly — the script reads these paths):</li>
+    </ol>
+    <div class="tree">Settings           (CanvasLayer)     &lt;- attach settings.gd; Layer 90; Process Mode = Always
+ └ Root             (Control)          full rect (Anchors Preset = Full Rect)
+    ├ Background     (ColorRect)        full rect; Color rgba(0,0,0,0.6)
+    └ Panel          (PanelContainer)   centered
+       └ VBox        (VBoxContainer)
+          ├ TitleLabel          (Label)   text "Settings"
+          ├ MasterRow  (HBoxContainer) → Label "Master" + MasterSlider (HSlider)
+          ├ MusicRow   (HBoxContainer) → Label "Music"  + MusicSlider  (HSlider)
+          ├ SfxRow     (HBoxContainer) → Label "SFX"    + SfxSlider    (HSlider)
+          ├ MuteRow    (HBoxContainer) → Label "Mute All" + MuteToggle (CheckButton)
+          ├ ResetTutorialButton (Button) text "Replay Tutorial"
+          └ CloseButton         (Button) text "Back"</div>
+  </div>
+  <table>
+    <tr><th>Node</th><th>Key properties</th></tr>
+    <tr><td>each <code>HSlider</code></td><td>Min Value <code>0</code>, Max Value <code>1</code>, Step <code>0.01</code>; Layout → Container Sizing → Horizontal = <code>Fill</code> + <code>Expand</code> (so it fills the row)</td></tr>
+    <tr><td>each row <code>Label</code></td><td>give a fixed Custom Minimum Size width (e.g. <code>x=180</code>) so sliders align</td></tr>
+    <tr><td><code>Panel</code></td><td>anchor centered; give the VBox some min width (e.g. <code>560</code>) and a Theme Override → Constants → Separation ~14</td></tr>
+    <tr><td><code>Background</code></td><td>semi-transparent so a paused game shows behind it in-game</td></tr>
+  </table>
+  <div class="step">Select the <code>Settings</code> root → <strong>Attach Script</strong> → Load → <code class="path">res://scenes/ui/settings.gd</code>. Save the scene.</div>
+  <div class="note">You don't wire any button signals in the editor — <code>settings.gd</code> connects the sliders, toggle, and
+  buttons in code. Just match the node names/paths above.</div>
+
+  <!-- STEP 4 -->
+  <h2 id="s4"><span class="n">4</span>Wire the main-menu Settings button</h2>
+  <div class="step">
+    <ol>
+      <li>Open <code class="path">res://scenes/ui/main_menu.tscn</code>, select the <code>MainMenu</code> root.</li>
+      <li>Inspector → <strong>Settings Scene</strong> = <code class="path">scenes/ui/settings.tscn</code>.</li>
+      <li><em>(Optional)</em> <strong>Menu Music</strong> = a music <code>AudioStream</code> (once you have one).</li>
+      <li>Save. The existing <code>Settings</code> button already opens it (no pause needed on the menu).</li>
+    </ol>
+  </div>
+
+  <!-- STEP 5 -->
+  <h2 id="s5"><span class="n">5</span>Add the in-game pause button</h2>
+  <p>Open <code class="path">res://scenes/level_controller.tscn</code> (root <code>Level</code>). Add a HUD with a pause button:</p>
+  <div class="step">
+    <div class="tree">Level (Node2D)
+ ├ PhaseContainer  (existing)
+ ├ Arena / spawns  (existing / runtime)
+ └ HUD             (CanvasLayer)     Layer = 50
+    └ PauseButton  (Button)          text "II" (or "Pause"); anchored top-right corner</div>
+    <ol>
+      <li>Add a <code>CanvasLayer</code> named <code>HUD</code> under <code>Level</code>; set <strong>Layer = 50</strong>.</li>
+      <li>Add a <code>Button</code> named <code>PauseButton</code> under <code>HUD</code>; anchor it to a top corner, give it a small size. <span class="tag">path must be HUD/PauseButton</span></li>
+      <li>Select the <code>Level</code> root → Inspector → <strong>Settings Scene</strong> = <code class="path">scenes/ui/settings.tscn</code>; <em>(optional)</em> <strong>Gameplay Music</strong> = a track.</li>
+      <li>Save.</li>
+    </ol>
+  </div>
+  <div class="note">The script auto-connects <code>HUD/PauseButton</code> if present (it's optional — no crash if you skip it).
+  Pressing it pauses the game (<code>get_tree().paused</code>) and opens Settings on top; <strong>Back</strong> unpauses. Audio keeps
+  playing through the pause because AudioManager runs with Process Mode = Always.</div>
+
+  <!-- STEP 6 -->
+  <h2 id="s6"><span class="n">6</span>Add audio files &amp; assign music (optional, later)</h2>
+  <div class="step">
+    <ol>
+      <li>Put audio under e.g. <code class="path">res://assets/audio/music/</code> and <code class="path">res://assets/audio/sfx/</code>. For looping music, select the imported track → <strong>Import</strong> dock → enable <strong>Loop</strong> → Reimport (the code also loops non-looping tracks as a fallback).</li>
+      <li>Assign <strong>Menu Music</strong> (on MainMenu) and <strong>Gameplay Music</strong> (on Level).</li>
+      <li>For SFX, call <code>AudioManager.play_sfx(my_stream)</code> from any script. To make the Kid's hurt sound obey the SFX slider, open <code class="path">entities/kid/kid.tscn</code>, select its <code>AudioStreamPlayer2D</code>, set <strong>Bus = SFX</strong>, and assign <code>hurt_sound</code>.</li>
+    </ol>
+  </div>
+
+  <!-- STEP 7 -->
+  <h2 id="s7"><span class="n">7</span>Run &amp; verify</h2>
+  <div class="step">
+    <ol>
+      <li><kbd>F5</kbd> → main menu → <strong>Settings</strong>: the panel fades in; sliders show saved values.</li>
+      <li>Drag <strong>Music</strong>/<strong>SFX</strong>/<strong>Master</strong> (audible once music/SFX exist). Toggle <strong>Mute All</strong> → silence; untoggle → restores.</li>
+      <li><strong>Back</strong>, reopen → values persisted. Relaunch the game → still persisted (stored in <code class="path">user://save_data.json</code>).</li>
+      <li><strong>Replay Tutorial</strong> → return to menu → Start → the tutorial shows again.</li>
+      <li>Start a run → press the <strong>pause button</strong> → the game freezes and Settings opens on top; <strong>Back</strong> resumes.</li>
+      <li>(With music assigned) menu → Start crossfades to the gameplay track; game over crossfades back to the menu track.</li>
+    </ol>
+  </div>
+  <div class="ok"><strong>SFX smoke test:</strong> temporarily add <code>AudioManager.play_sfx(preload("res://assets/audio/sfx/&lt;file&gt;.wav"))</code>
+  to any button handler → it plays on the SFX bus and obeys the SFX slider &amp; mute.</div>
+
+  <hr>
+  <h2>Reference — files in this system</h2>
+  <table>
+    <tr><th>File</th><th>Role</th></tr>
+    <tr><td><code class="path">autoloads/audio_manager.gd</code></td><td>Buses, music crossfade, SFX pool, volume/mute API.</td></tr>
+    <tr><td><code class="path">scenes/ui/settings.gd</code> + <code>.tscn</code></td><td>The settings overlay (sliders, mute, replay-tutorial).</td></tr>
+    <tr><td><code class="path">autoloads/save_manager.gd</code></td><td>Persists master/music/sfx volume + muted; <code>reset_tutorial()</code>.</td></tr>
+    <tr><td><code class="path">scenes/ui/main_menu.gd</code></td><td>Plays menu music; opens Settings (button already wired).</td></tr>
+    <tr><td><code class="path">scenes/level_controller.gd</code></td><td>Gameplay music + pause button → Settings (pause/unpause).</td></tr>
+  </table>
+
+</div>
+</body>
+</html>

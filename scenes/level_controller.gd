@@ -11,6 +11,10 @@ extends Node2D
 @export var kid_scene: PackedScene
 ## Optional floor/walls (StaticBody2D) added to the Arena. Leave empty if not needed yet.
 @export var arena_bounds_scene: PackedScene
+## The settings overlay opened by the in-game pause button.
+@export var settings_scene: PackedScene
+## Background track for gameplay; crossfades in (leave empty until you have audio assets).
+@export var gameplay_music: AudioStream
 
 ## Bottom-center of the 1920x1080 design space (no camera → world coords == screen coords).
 const KID_POSITION: Vector2 = Vector2(960.0, 980.0)
@@ -18,15 +22,21 @@ const KID_POSITION: Vector2 = Vector2(960.0, 980.0)
 @onready var phase_container: Node = $PhaseContainer
 @onready var spawn_left: Marker2D = $SpawnPointLeft
 @onready var spawn_right: Marker2D = $SpawnPointRight
+## Optional in-game pause button (added to the editor HUD; safe if absent).
+@onready var _pause_button: Button = get_node_or_null(^"HUD/PauseButton")
 
 var current_phase_node: Node = null
 var attacker_instance: Node = null
 ## Persistent world that survives phase swaps: holds the Kid + all placed furniture.
 var arena: Node2D = null
+var _settings_open: bool = false
 
 func _ready() -> void:
 	GameEvents.try_connect(GameEvents.phase_finished, _on_phase_finished)
 	GameEvents.try_connect(GameEvents.game_over, _on_game_over)
+
+	if _pause_button != null:
+		_pause_button.pressed.connect(_on_pause_pressed)
 
 	_show_tutorial_if_needed()
 
@@ -44,6 +54,7 @@ func _on_tutorial_finished() -> void:
 
 func _begin_session() -> void:
 	_ensure_arena()
+	AudioManager.play_music(gameplay_music)
 	GameManager.start_game()
 	_load_phase(choosing_phase_scene)
 
@@ -108,6 +119,23 @@ func _on_round_continued(_round_number: int) -> void:
 
 func _on_game_over() -> void:
 	SceneManager.load_main_menu()
+
+## Pause the game and open the settings overlay (unpauses on close).
+func _on_pause_pressed() -> void:
+	if _settings_open or settings_scene == null:
+		return
+	var settings: Settings = settings_scene.instantiate() as Settings
+	if settings == null:
+		push_error("LevelController: settings_scene root is not a Settings node.")
+		return
+	_settings_open = true
+	SceneManager.pause_game()
+	get_tree().root.add_child(settings)
+	settings.on_close.connect(_on_settings_closed)
+
+func _on_settings_closed() -> void:
+	_settings_open = false
+	SceneManager.unpause_game()
 	
 func _spawn_attacker() -> void:
 	if attacker_instance and is_instance_valid(attacker_instance):
