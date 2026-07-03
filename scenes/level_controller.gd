@@ -5,10 +5,19 @@ extends Node2D
 @export var attacking_phase_scene: PackedScene
 @export var win_screen_scene: PackedScene
 @export var tutorial_scene: PackedScene
+## The child the player protects. Spawned once into the persistent Arena.
+@export var kid_scene: PackedScene
+## Optional floor/walls (StaticBody2D) added to the Arena. Leave empty if not needed yet.
+@export var arena_bounds_scene: PackedScene
+
+## Bottom-center of the 1920x1080 design space (no camera → world coords == screen coords).
+const KID_POSITION: Vector2 = Vector2(960.0, 980.0)
 
 @onready var phase_container: Node = $PhaseContainer
 
 var current_phase_node: Node = null
+## Persistent world that survives phase swaps: holds the Kid + all placed furniture.
+var arena: Node2D = null
 
 func _ready() -> void:
 	GameEvents.try_connect(GameEvents.phase_finished, _on_phase_finished)
@@ -29,8 +38,31 @@ func _on_tutorial_finished() -> void:
 	_begin_session()
 
 func _begin_session() -> void:
+	_ensure_arena()
 	GameManager.start_game()
 	_load_phase(choosing_phase_scene)
+
+## Create the persistent Arena once per session, as a sibling of PhaseContainer so it is
+## never freed by _load_phase. Spawns optional bounds + the Kid into it.
+func _ensure_arena() -> void:
+	if arena != null and is_instance_valid(arena):
+		return
+	arena = Node2D.new()
+	arena.name = "Arena"
+	arena.add_to_group(&"arena")
+	add_child(arena)
+
+	if arena_bounds_scene != null:
+		arena.add_child(arena_bounds_scene.instantiate())
+
+	if kid_scene != null:
+		var kid: Node2D = kid_scene.instantiate()
+		arena.add_child(kid)
+		kid.global_position = KID_POSITION
+
+## Accessor for phases that prefer a direct reference over the &"arena" group lookup.
+func get_arena() -> Node2D:
+	return arena
 
 
 func _load_phase(scene: PackedScene) -> void:

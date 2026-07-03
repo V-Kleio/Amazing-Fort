@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_ref2f"]
 [ext_resource type="Texture2D" uid="uid://d3tfngatjb05t" path="res://icon.svg" id="1_ub5gf"]
+[ext_resource type="PackedScene" uid="uid://di8e108b30hpw" path="res://entities/placeable/placeable_entity.tscn" id="1_x76li"]
 
 [resource]
 script = ExtResource("1_ref2f")
+entity_scene = ExtResource("1_x76li")
 quantity = 2
 display_name = "Test1"
 description = "Ini buat test scene doang"

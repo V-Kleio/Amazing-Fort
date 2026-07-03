@@ -21,6 +21,11 @@ signal round_started(round_number: int)
 signal draft_option_selected(option: DraftOption)
 signal upgrade_acquired(option: DraftOption)
 
+## Build phase signals
+signal furniture_placed(entity: PlaceableEntity)
+signal furniture_removed(entity: PlaceableEntity)
+signal kid_damaged(remaining_health: int)
+
 ## Safely connect if not already connected
 func try_connect(sig: Signal, callable: Callable) -> void:
 	if not sig.is_connected(callable):
