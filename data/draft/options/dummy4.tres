@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://bj6mujq71rwfq"]
 
 [ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_8es8n"]
-[ext_resource type="Texture2D" uid="uid://c4oovan1fv4t8" path="res://assets/visual/dummy/bocil_dummy.png" id="1_wu43q"]
+[ext_resource type="Texture2D" uid="uid://c34uco262e2jw" path="res://assets/visual/draft/ikon furnitur.png" id="1_wu43q"]
 
 [resource]
 script = ExtResource("1_8es8n")

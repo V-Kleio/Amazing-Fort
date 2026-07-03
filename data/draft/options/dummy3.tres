@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UpgradeDraftOption" format=3 uid="uid://dc8elap56mi0t"]
 
 [ext_resource type="Script" uid="uid://balqko8f2rwev" path="res://data/draft/upgrade_draft_option.gd" id="1_6cqnd"]
-[ext_resource type="Texture2D" uid="uid://c4oovan1fv4t8" path="res://assets/visual/dummy/bocil_dummy.png" id="1_kk3f8"]
+[ext_resource type="Texture2D" uid="uid://ocl3s45goq0f" path="res://assets/visual/draft/upgrade ikon.png" id="1_kk3f8"]
 
 [resource]
 script = ExtResource("1_6cqnd")

@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://ckbtoclv77wth"]
 
 [ext_resource type="Script" uid="uid://d17taeovrs2r3" path="res://scenes/phases/draft_card.gd" id="1_pp8nl"]
+[ext_resource type="Texture2D" uid="uid://5jt0flsdge7i" path="res://assets/visual/draft/Boons card (board).PNG" id="1_x8tfx"]
+[ext_resource type="Theme" uid="uid://d041d5fl6lsgm" path="res://default_theme.tres" id="2_s2f3b"]
 
-[node name="DraftCard" type="Button" unique_id=1227244413]
+[node name="DraftCard" type="TextureButton" unique_id=842746876]
 custom_minimum_size = Vector2(320, 440)
+offset_right = 320.0
+offset_bottom = 440.0
 focus_mode = 0
+texture_normal = ExtResource("1_x8tfx")
 script = ExtResource("1_pp8nl")
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=572506891]
@@ -15,7 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
@@ -23,25 +28,29 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 theme_override_constants/separation = 12
 
+[node name="Icon" type="TextureRect" parent="Margin/VBox" unique_id=1812121964]
+layout_mode = 2
+size_flags_horizontal = 4
+
 [node name="Name" type="Label" parent="Margin/VBox" unique_id=944198709]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme = ExtResource("2_s2f3b")
+theme_override_colors/font_outline_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 52
 horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Margin/VBox" unique_id=1812121964]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_vertical = 3
-expand_mode = 1
-stretch_mode = 5
+autowrap_mode = 3
+uppercase = true
 
 [node name="Description" type="Label" parent="Margin/VBox" unique_id=139712544]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme = ExtResource("2_s2f3b")
+theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Rarity" type="ColorRect" parent="Margin/VBox" unique_id=623499413]
+visible = false
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2

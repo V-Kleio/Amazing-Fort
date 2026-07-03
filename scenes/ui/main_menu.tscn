@@ -3,48 +3,73 @@
 [ext_resource type="Script" uid="uid://s1h8yvrqxy42" path="res://scenes/ui/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://djgjsp08majiv" path="res://scenes/ui/credits.tscn" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="3_1g8jr"]
+[ext_resource type="Texture2D" uid="uid://b6wyh8af5wd4q" path="res://assets/visual/main_menu/Titlescreen background.png" id="4_m1kxf"]
+[ext_resource type="Texture2D" uid="uid://dm2xk2880nx30" path="res://assets/visual/main_menu/Title .png" id="5_x2yvf"]
+[ext_resource type="Texture2D" uid="uid://npgpubl5jow7" path="res://assets/visual/main_menu/Titlescreen bocil 1 biar bisa di layer yeah gatau.png" id="6_uhagc"]
+[ext_resource type="Theme" uid="uid://d041d5fl6lsgm" path="res://default_theme.tres" id="7_btxxm"]
+[ext_resource type="Texture2D" uid="uid://b23ae5llnvut4" path="res://assets/visual/main_menu/start.png" id="7_wb0q5"]
 
 [node name="MainMenu" type="Control" unique_id=349406763]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_l6cm7")
 credits_scene = ExtResource("2_ekxnf")
 settings_scene = ExtResource("3_1g8jr")
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1935086065]
+[node name="BG" type="TextureRect" parent="." unique_id=1053074925]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("4_m1kxf")
+
+[node name="Title" type="TextureRect" parent="." unique_id=794761387]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
+texture = ExtResource("5_x2yvf")
 
-[node name="StartButton" type="Button" parent="." unique_id=146906822]
+[node name="Bocil" type="TextureRect" parent="." unique_id=1356939816]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Start"
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_uhagc")
+
+[node name="StartButton" type="TextureButton" parent="." unique_id=1171497577]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -90.0
+offset_right = 195.0
+offset_bottom = 246.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("7_wb0q5")
 
 [node name="SettingsButton" type="Button" parent="." unique_id=1579508046]
-layout_mode = 0
-offset_top = 50.0
-offset_right = 70.0
-offset_bottom = 81.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.5
+offset_top = -310.0
+offset_right = 225.5
+offset_bottom = -115.99878
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_btxxm")
+theme_override_font_sizes/font_size = 128
 text = "Settings"
-
-[node name="CreditsButton" type="Button" parent="." unique_id=768937095]
-layout_mode = 0
-offset_top = 100.0
-offset_right = 63.0
-offset_bottom = 131.0
-text = "Credits
-"
-
-[node name="QuitButton" type="Button" parent="." unique_id=1954360145]
-layout_mode = 0
-offset_top = 150.0
-offset_right = 42.0
-offset_bottom = 181.0
-text = "Quit"
+flat = true
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="QuitButton" to="." method="_on_quit_pressed"]

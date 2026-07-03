@@ -8,11 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://du8obn4iwf61q" path="res://scenes/ui/tutorial.tscn" id="6_yupck"]
 [ext_resource type="PackedScene" uid="uid://dge3m0jwaegge" path="res://entities/attacker/attacker.tscn" id="7_xfvny"]
 [ext_resource type="PackedScene" uid="uid://cohhvlyoavg8m" path="res://entities/kid/kid.tscn" id="8_eegx8"]
-[ext_resource type="Texture2D" uid="uid://balfge7krwn7y" path="res://assets/visual/Background living room.png" id="8_t82cj"]
 [ext_resource type="PackedScene" uid="uid://c63jxqngpma6n" path="res://scenes/ui/settings.tscn" id="9_stgs"]
+[ext_resource type="Texture2D" uid="uid://bwxnran7i2o54" path="res://assets/visual/New living room background.PNG" id="10_bmpau"]
+[ext_resource type="Texture2D" uid="uid://cnsvptgc45od7" path="res://assets/visual/Border.PNG" id="11_lhxab"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvny"]
-size = Vector2(1940, 75)
+size = Vector2(1940, 101.000046)
 
 [node name="Level" type="Node2D" unique_id=2131601295]
 script = ExtResource("1_20026")
@@ -36,9 +37,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=405349356]
+[node name="BG" type="TextureRect" parent="CanvasLayer" unique_id=405349356]
 layout_mode = 1
-texture = ExtResource("8_t82cj")
+texture = ExtResource("10_bmpau")
+
+[node name="Border" type="TextureRect" parent="CanvasLayer" unique_id=1390742165]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("11_lhxab")
 
 [node name="SpawnPointLeft" type="Marker2D" parent="." unique_id=569268576]
 position = Vector2(300, 800)
@@ -49,13 +56,8 @@ position = Vector2(1620, 800)
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1106252430 groups=["hard_material"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1131788297]
-position = Vector2(960, 27.5)
+position = Vector2(964, 35)
 shape = SubResource("RectangleShape2D_xfvny")
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=45981872]
-offset_right = 1920.0
-offset_bottom = 64.0
-color = Color(0.1882353, 0.1882353, 0.1882353, 1)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1314803831 groups=["hard_material"]]
 position = Vector2(0, 1000)
@@ -64,26 +66,13 @@ position = Vector2(0, 1000)
 position = Vector2(960, 27.5)
 shape = SubResource("RectangleShape2D_xfvny")
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D2" unique_id=1051804607]
-offset_left = 1.0
-offset_top = -6.0
-offset_right = 1929.0
-offset_bottom = 64.0
-color = Color(0.1893278, 0.18932778, 0.1893278, 1)
-
 [node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=969458914 groups=["hard_material"]]
 position = Vector2(60, 0)
 rotation = 1.5707964
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=763664893]
-position = Vector2(960, 27.5)
+position = Vector2(960, 14.499977)
 shape = SubResource("RectangleShape2D_xfvny")
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D3" unique_id=1131710926]
-offset_top = -7.730438
-offset_right = 1082.3223
-offset_bottom = 63.191345
-color = Color(0.1882353, 0.1882353, 0.1882353, 1)
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="." unique_id=684360054 groups=["hard_material"]]
 position = Vector2(1910, 0)
@@ -92,12 +81,6 @@ rotation = 1.5707964
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=667402979]
 position = Vector2(960, 27.5)
 shape = SubResource("RectangleShape2D_xfvny")
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D4" unique_id=1393180819]
-offset_top = -12.884033
-offset_right = 1092.6318
-offset_bottom = 64.47974
-color = Color(0.1882353, 0.1882353, 0.1882353, 1)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1644831682]
 layer = 50
