@@ -19,6 +19,8 @@ extends Node2D
 @export var transition_scene: PackedScene
 ## Heart sprite for the Kid's health display (optional; a drawn placeholder shows if empty).
 @export var health_heart_texture: Texture2D
+## Pointer hand for the first-run tutorial coach-marks (optional; captions still show if empty).
+@export var tutorial_hand_texture: Texture2D
 
 ## Bottom-center of the 1920x1080 design space (no camera → world coords == screen coords).
 const KID_POSITION: Vector2 = Vector2(960.0, 870.0)
@@ -56,13 +58,12 @@ func _setup_pause_juice() -> void:
 	UIJuice.press_scale(_pause_button)
 
 func _show_tutorial_if_needed() -> void:
-	if not SaveManager.is_tutorial_completed() and tutorial_scene != null:
-		# Tutorial instantiated on top, blocks input until done
-		var tutorial: Node = tutorial_scene.instantiate()
-		add_child(tutorial)
-		tutorial.tutorial_finished.connect(_on_tutorial_finished)
-	else:
-		_begin_session()
+	# FTUE is in-game coach-marks (non-blocking): start the session, then guide the first run.
+	_begin_session()
+	if not SaveManager.is_tutorial_completed():
+		var guide: TutorialGuide = TutorialGuide.new()
+		guide.hand_texture = tutorial_hand_texture
+		add_child(guide)
 
 func _on_tutorial_finished() -> void:
 	_begin_session()
