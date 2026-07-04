@@ -19,10 +19,12 @@ func setup(win: bool) -> void:
 func _ready() -> void:
 	if _primary_button != null:
 		_primary_button.text = "Continue" if is_win else "Replay"
-		_primary_button.pressed.connect(_on_primary_pressed)
+		if not _primary_button.pressed.is_connected(_on_primary_pressed):
+			_primary_button.pressed.connect(_on_primary_pressed)
 	
 	if _menu_button != null:
-		_menu_button.pressed.connect(_on_menu_pressed)
+		if not _menu_button.pressed.is_connected(_on_menu_pressed):
+			_menu_button.pressed.connect(_on_menu_pressed)
 	
 	if _result_label != null:
 		_result_label.text = "You Survived!" if is_win else "You Died!"
@@ -37,7 +39,6 @@ func _ready() -> void:
 	create_tween().tween_property(self, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_SINE)
 
 func _on_primary_pressed() -> void:
-	print("KEPENCET")
 	await _fade_out()
 	if is_win:
 		GameManager.next_round()

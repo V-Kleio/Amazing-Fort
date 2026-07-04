@@ -16,8 +16,13 @@ extends RigidBody2D
 
 const TINT_VALID: Color = Color(0.55, 1.0, 0.55, 0.9)
 const TINT_INVALID: Color = Color(1.0, 0.45, 0.45, 0.9)
+const HIT_TINT: Color = Color(1.0, 0.6, 0.6)
+## Min seconds between damage instances on one piece (prevents multi-contact spam from one pass).
+const DAMAGE_COOLDOWN: float = 0.2
 
 @export var data: EntityData
+## Optional sound played when the piece breaks.
+@export var break_sfx: AudioStream
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _overlap_area: Area2D = $OverlapArea
@@ -28,6 +33,10 @@ var durability: float = 100.0
 var _overlap_count: int = 0
 ## Sprite's authored scale, captured so juice pops can return to it.
 var _base_sprite_scale: Vector2 = Vector2.ONE
+## Combat durability state.
+var _max_durability: float = 100.0
+var _is_broken: bool = false
+var _damage_cd_left: float = 0.0
 
 func _ready() -> void:
 	add_to_group(&"placeable")
@@ -49,6 +58,7 @@ func _apply_data() -> void:
 		return
 	mass = data.mass
 	durability = data.durability
+	_max_durability = data.durability
 	linear_damp = data.linear_damp
 	angular_damp = data.angular_damp
 	var material: PhysicsMaterial = PhysicsMaterial.new()
@@ -124,6 +134,49 @@ func activate_physics() -> void:
 	else:
 		gravity_scale = 1.0
 	freeze = false
+
+# --- Combat damage ---------------------------------------------------------
+
+func _process(delta: float) -> void:
+	if _damage_cd_left > 0.0:
+		_damage_cd_left -= delta
+
+## Take projectile damage. A short cooldown stops one pass from multi-hitting; below
+## broken_threshold the sprite swaps to its cracked version; at 0 the piece breaks.
+func take_damage(amount: float) -> void:
+	if amount <= 0.0 or _damage_cd_left > 0.0:
+		return
+	_damage_cd_left = DAMAGE_COOLDOWN
+	durability -= amount
+	_flash_hit()
+	if durability <= 0.0:
+		_break()
+		return
+	var threshold: float = data.broken_threshold if data != null else 0.3
+	if not _is_broken and durability <= _max_durability * threshold \
+			and data != null and data.broken_texture != null:
+		_is_broken = true
+		_sprite.texture = data.broken_texture
+
+func _flash_hit() -> void:
+	if _sprite == null:
+		return
+	_sprite.modulate = HIT_TINT
+	_sprite.create_tween().tween_property(_sprite, "modulate", Color.WHITE, 0.2).set_trans(Tween.TRANS_SINE)
+
+func _break() -> void:
+	GameEvents.furniture_removed.emit(self)
+	if break_sfx != null:
+		AudioManager.play_sfx(break_sfx)
+	# Disable collisions + physics, play a shrink+fade, then free.
+	collision_layer = 0
+	collision_mask = 0
+	freeze = true
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(_sprite, "scale", _base_sprite_scale * 0.2, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	tween.tween_property(_sprite, "modulate:a", 0.0, 0.18)
+	await tween.finished
+	queue_free()
 
 # --- Internals -------------------------------------------------------------
 

@@ -32,6 +32,10 @@ extends Resource
 ## Optional group the piece joins in combat so the ball reacts to it, e.g.
 ## &"hard_material" (bouncier) or &"soft_material" (dampens). Empty = neutral.
 @export var combat_material_group: StringName = &""
+## Sprite shown once the piece is heavily damaged (below broken_threshold). Empty = no cracked stage.
+@export var broken_texture: Texture2D
+## Fraction of max durability at/below which the broken sprite appears (0.3 = 30%).
+@export_range(0.0, 1.0) var broken_threshold: float = 0.3
 
 @export_group("Build")
 ## Whether the rotation ring is offered for this piece during Build.

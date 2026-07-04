@@ -1,8 +1,13 @@
 [gd_resource type="Resource" script_class="EntityData" format=3 uid="uid://dbrst36t7ing8"]
 
 [ext_resource type="Script" uid="uid://b834wqe5chjer" path="res://data/entities/entity_data.gd" id="1_biqe0"]
+[ext_resource type="Texture2D" uid="uid://d2lamnd8jtow4" path="res://assets/visual/props/kursi rusak.png" id="1_tj2cs"]
 
 [resource]
 script = ExtResource("1_biqe0")
 display_name = "Chair"
+mass = 2.2
+durability = 120.0
+combat_material_group = &"hard_material"
+broken_texture = ExtResource("1_tj2cs")
 metadata/_custom_type_script = "uid://b834wqe5chjer"

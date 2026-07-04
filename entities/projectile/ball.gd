@@ -1,19 +1,26 @@
 extends RigidBody2D
 class_name Projectile
 
-@export var max_speed: float = 2000.0
+@export var max_speed: float = 1400.0
 @export var min_bounce_variance: float = 0.85
-@export var max_bounce_variance: float = 1.15
-@export var random_impulse_strength: float = 400.0
+@export var max_bounce_variance: float = 1.1
+@export var random_impulse_strength: float = 150.0
 @export var chaos_deflect_deg: float = 35.0
 @export var spin_impulse_strength: float = 12.0
 @export var acceleration_rate: float = 900.0
-@export var collision_decay: float = 0.08
-@export var hard_material_boost: float = 1.5
-@export var soft_material_damp: float = 0.8
+@export var collision_decay: float = 0.12
+@export var hard_material_boost: float = 1.08
+@export var soft_material_damp: float = 0.75
 @export var stop_linear_threshold: float = 5.0
 @export var stop_angular_threshold: float = 0.15
-@export var stop_duration_to_win: float = 5.0
+## Seconds at rest before the ball fades out and clears (barrage → don't pile up).
+@export var stop_duration_to_win: float = 1.2
+## Bounciness/friction applied to the ball at runtime (softer than the .tscn's bounce=1).
+@export_range(0.0, 1.0) var bounce: float = 0.55
+@export_range(0.0, 1.0) var friction: float = 0.1
+## Furniture damage = max(0, impact - damage_threshold) * damage_factor, where impact = speed*mass.
+@export var damage_threshold: float = 250.0
+@export var damage_factor: float = 0.15
 ## Optional impact sound (editor-assignable; silent until you add an SFX asset).
 @export var impact_sfx: AudioStream
 
@@ -24,6 +31,7 @@ var _contact_normals: Dictionary = {}
 var _stopped_timer: float = 0.0
 var _has_won: bool = false
 var _can_accelerate: bool = true
+var _dying: bool = false
 
 @onready var _sprite: Sprite2D = $Sprite2D
 var _base_scale: Vector2 = Vector2.ONE
@@ -33,6 +41,11 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 4
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+	# Softer, lossy bounce (the .tscn material is perfectly elastic) so it decays instead of ricocheting.
+	var material: PhysicsMaterial = PhysicsMaterial.new()
+	material.bounce = bounce
+	material.friction = friction
+	physics_material_override = material
 	body_entered.connect(_on_body_entered)
 
 func launch(direction: Vector2, force: float) -> void:
@@ -54,6 +67,11 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			_contact_normals[body.get_instance_id()] = state.get_contact_local_normal(i)
 
 func _on_body_entered(body: Node) -> void:
+	# Damage furniture from the pre-bounce impact (speed * mass) before we mutate velocity.
+	if body.is_in_group(&"placeable") and body.has_method("take_damage"):
+		var impact: float = linear_velocity.length() * mass
+		body.take_damage(maxf(0.0, impact - damage_threshold) * damage_factor)
+
 	# Every bounce counts: this halts _accelerate() after the first hit and grows the
 	# decay term, so the ball settles instead of ricocheting forever off the hard walls.
 	collision_count += 1
@@ -97,11 +115,11 @@ func _clamp_speed() -> void:
 		linear_velocity = linear_velocity.normalized() * max_speed
 
 func _check_fully_stopped(delta: float) -> void:
-	if _has_won:
+	if _dying:
 		return
-		
-	# Must have actually hit something and be genuinely slow. No forced sleep — gravity keeps
-	# an airborne ball moving, so it can't falsely "win" at the apex of its launch arc.
+
+	# A ball that has hit something and gone genuinely slow has "landed" → fade it out so a
+	# barrage of rested balls doesn't pile up. (No forced sleep; gravity keeps airborne balls moving.)
 	var is_slow: bool = collision_count > 0 \
 		and linear_velocity.length() < stop_linear_threshold \
 		and abs(angular_velocity) < stop_angular_threshold
@@ -109,10 +127,23 @@ func _check_fully_stopped(delta: float) -> void:
 	if is_slow:
 		_stopped_timer += delta
 		if _stopped_timer >= stop_duration_to_win:
-			_has_won = true
-			fully_stopped.emit()
+			_clear()
 	else:
 		_stopped_timer = 0.0
+
+## Fade out and free a rested ball.
+func _clear() -> void:
+	if _dying:
+		return
+	_dying = true
+	fully_stopped.emit()  # kept for any listeners; no longer drives "win"
+	collision_layer = 0
+	collision_mask = 0
+	freeze = true
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.3)
+	await tween.finished
+	queue_free()
 
 # --- Juice -----------------------------------------------------------------
 

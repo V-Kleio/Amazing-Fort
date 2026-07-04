@@ -11,16 +11,13 @@ func _ready() -> void:
 	round_label.text = "Round %d" % GameManager.current_round
 	is_active = true
 	
-	GameEvents.try_connect(GameEvents.ball_stopped, _on_ball_stopped)
+	# Win is now timeout-only (survive the escalating barrage); ball_stopped no longer ends the round.
 	
 	var kids = get_tree().get_nodes_in_group(&"kid")
 	if kids.size() > 0:
 		kids[0].died.connect(resolve_lose)
 		
 	_start_round_timer()
-
-func _on_ball_stopped() -> void:
-	resolve_win()
 
 func _start_round_timer() -> void:
 	var timer: SceneTreeTimer = get_tree().create_timer(round_duration)
@@ -35,15 +32,12 @@ func resolve_win() -> void:
 	if not is_active:
 		return
 	is_active = false
-	GameEvents.try_disconnect(GameEvents.ball_stopped, _on_ball_stopped)
-	# Langsung lempar sinyal win
 	GameEvents.phase_finished.emit("attacking_win")
 
 func resolve_lose() -> void:
 	if not is_active:
 		return
 	is_active = false
-	GameEvents.try_disconnect(GameEvents.ball_stopped, _on_ball_stopped)
 	GameEvents.phase_finished.emit("attacking_lose")
 
 func _input(event: InputEvent) -> void:

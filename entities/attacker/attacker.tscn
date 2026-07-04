@@ -12,7 +12,6 @@
 
 [node name="Attacker" type="Node2D" unique_id=484477420]
 script = ExtResource("1_5e18x")
-aim_spread_deg = 12.0
 ball_scene = ExtResource("2_yid2j")
 projectile_sprites = Array[Texture2D]([ExtResource("3_s287t"), ExtResource("4_r8a7a"), ExtResource("5_xh50m"), ExtResource("6_emsma"), ExtResource("7_pdue3")])
 trajectory_marker_scene = ExtResource("3_dgf0o")

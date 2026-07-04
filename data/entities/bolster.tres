@@ -1,8 +1,13 @@
 [gd_resource type="Resource" script_class="EntityData" format=3 uid="uid://cgqi3vy5b4a6b"]
 
 [ext_resource type="Script" uid="uid://b834wqe5chjer" path="res://data/entities/entity_data.gd" id="1_ppv2t"]
+[ext_resource type="Texture2D" uid="uid://c20lcb4t6xk2j" path="res://assets/visual/props/guling rusak item.png" id="1_y84r5"]
 
 [resource]
 script = ExtResource("1_ppv2t")
 display_name = "Bolster"
+mass = 1.2
+durability = 70.0
+combat_material_group = &"soft_material"
+broken_texture = ExtResource("1_y84r5")
 metadata/_custom_type_script = "uid://b834wqe5chjer"

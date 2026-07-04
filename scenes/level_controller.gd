@@ -121,7 +121,8 @@ func _run_build_to_attack() -> void:
 		await curtain.finished
 	_activate_furniture_physics()
 	if attacker_instance and is_instance_valid(attacker_instance):
-		attacker_instance.start_attack_phase()
+		var phase := current_phase_node as AttackingPhase
+		attacker_instance.start_attack_phase(phase.round_duration if phase != null else 15.0)
 
 ## Unfreeze every placed piece so it obeys gravity/collisions in combat (per EntityData).
 func _activate_furniture_physics() -> void:
@@ -156,8 +157,13 @@ func _load_result_screen(is_win: bool) -> void:
 	if result_screen.has_method("setup"):
 		result_screen.setup(is_win)
 		
-	phase_container.add_child(result_screen)
-	
+	# Add to the HUD CanvasLayer (layer 50) so it sits above the room background for INPUT,
+	# not just drawing — a plain Control under PhaseContainer (layer 0) gets its clicks eaten.
+	var host: Node = get_node_or_null(^"HUD")
+	if host == null:
+		host = phase_container
+	host.add_child(result_screen)
+
 	# Kalau mau game over beneran pas kalah, kamu bisa atur di WinScreen.gd pas tombol diklik
 	GameEvents.try_connect(GameEvents.round_started, _on_round_continued)
 
@@ -212,3 +218,6 @@ func _cleanup_attacker() -> void:
 		attacker_instance.cleanup()
 		attacker_instance.queue_free()
 		attacker_instance = null
+	# Clear any live balls from the barrage so they don't linger into the next phase.
+	for ball in get_tree().get_nodes_in_group(&"enemy_projectile"):
+		ball.queue_free()

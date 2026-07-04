@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource("1_e6lil")
 display_name = "Pillow"
+durability = 40.0
+combat_material_group = &"soft_material"
 metadata/_custom_type_script = "uid://b834wqe5chjer"
