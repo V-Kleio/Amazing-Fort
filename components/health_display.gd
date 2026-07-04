@@ -27,8 +27,13 @@ func _on_kid_damaged(remaining: int) -> void:
 	queue_redraw()
 	_pop()
 
+	if _current <= 0:
+		visible = false
+
 func _on_round_started(_round_number: int) -> void:
 	_current = GameManager.player_health
+
+	visible = true 
 	queue_redraw()
 
 func _pop() -> void:

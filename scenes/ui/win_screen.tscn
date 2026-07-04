@@ -1,8 +1,20 @@
-[gd_scene format=3 uid="uid://b6hpmtu45o5l3"]
+[gd_scene format=3 uid="uid://nmj1pg4v4lgw"]
 
 [ext_resource type="Script" uid="uid://letfrbc50tn7" path="res://scenes/ui/win_screen.gd" id="1_wv5lq"]
+[ext_resource type="Texture2D" uid="uid://bvtvd0lrmxul2" path="res://assets/visual/win screen bocil.png" id="2_rc6je"]
+[ext_resource type="Texture2D" uid="uid://c4alaa1pow0t3" path="res://assets/visual/lose bocil.png" id="3_viy0t"]
+[ext_resource type="FontFile" uid="uid://c21vq2bojxddj" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="4_401aj"]
+[ext_resource type="Texture2D" uid="uid://dyopo5o8tfd40" path="res://assets/visual/win screen text bg.png" id="4_viy0t"]
 
-[node name="WinScreen" type="Control" unique_id=1429529570]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_viy0t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_401aj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="WinScreen" type="Control" unique_id=1350805473]
+process_mode = 3
+z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,28 +22,96 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wv5lq")
+win_texture = ExtResource("2_rc6je")
+lose_texture = ExtResource("3_viy0t")
+banner_texture = ExtResource("4_viy0t")
 
-[node name="Panel" type="Panel" parent="." unique_id=1528470206]
+[node name="DimOverlay" type="ColorRect" parent="." unique_id=2129166145]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.20784314)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=606232530]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1786446777]
+[node name="CharacterImage" type="TextureRect" parent="CenterContainer" unique_id=1080261800]
+custom_minimum_size = Vector2(750, 750)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer" unique_id=90533564]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBox" unique_id=2050431555]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BannerImage" type="TextureRect" parent="CenterContainer/VBox" unique_id=1173013582]
+custom_minimum_size = Vector2(450, 110)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ResultLabel" type="Label" parent="CenterContainer/VBox/BannerImage" unique_id=2089598826]
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 50.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = ExtResource("4_401aj")
+theme_override_font_sizes/font_size = 46
+text = "You Survived!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="PrimaryButton" type="Button" parent="Panel/VBox" unique_id=1535230445]
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/VBox" unique_id=678174471]
 layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="MenuButton" type="Button" parent="Panel/VBox" unique_id=1265507376]
+[node name="PrimaryButton" type="Button" parent="CenterContainer/VBox/HBox" unique_id=410082925]
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("4_401aj")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_viy0t")
+text = "Continue"
+
+[node name="MenuButton" type="Button" parent="CenterContainer/VBox/HBox" unique_id=229324804]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.4509804, 0.14509805, 0.14117648, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("4_401aj")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_401aj")
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="CenterContainer/VBox/HBox/PrimaryButton" to="." method="_on_primary_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/HBox/MenuButton" to="." method="_on_menu_pressed"]
