@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://0nqqxsqj5ixk"]
+
+[ext_resource type="PackedScene" uid="uid://bikx33acup0lg" path="res://entities/placeable/pillow.tscn" id="1_5ae02"]
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_kkdu0"]
+[ext_resource type="Texture2D" uid="uid://b4g1qgfyqdnv" path="res://assets/visual/props/Bantal inventory.png" id="2_v63qk"]
+
+[resource]
+script = ExtResource("1_kkdu0")
+entity_scene = ExtResource("1_5ae02")
+display_name = "Single Pillow"
+description = "Get a pillow"
+icon = ExtResource("2_v63qk")
+weight = 2.0
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://j1oagxjyj2pu"]
+
+[ext_resource type="PackedScene" uid="uid://cmorhmnv48867" path="res://entities/placeable/bolster.tscn" id="1_a4850"]
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_xbmiq"]
+[ext_resource type="Texture2D" uid="uid://bj72q8u2idueb" path="res://assets/visual/props/Guling inventory.png" id="2_8nm6i"]
+
+[resource]
+script = ExtResource("1_xbmiq")
+entity_scene = ExtResource("1_a4850")
+quantity = 2
+display_name = "Double Bolster"
+description = "Get two bolsters"
+icon = ExtResource("2_8nm6i")
+rarity = 1
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

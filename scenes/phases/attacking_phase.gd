@@ -1,7 +1,7 @@
 extends Node2D
 class_name AttackingPhase
 
-@export var round_duration: float = 30.0
+@export var round_duration: float = 15.0
 
 @onready var round_label: Label = $CanvasLayer/Control/RoundLabel
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://dt531g1bhmoum"]
+
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_73xqw"]
+[ext_resource type="PackedScene" uid="uid://estyn728brpn" path="res://entities/placeable/chair.tscn" id="1_xg15y"]
+[ext_resource type="Texture2D" uid="uid://cwhdflnwteoi8" path="res://assets/visual/props/Kursi inventory.png" id="2_ef58c"]
+
+[resource]
+script = ExtResource("1_73xqw")
+entity_scene = ExtResource("1_xg15y")
+quantity = 3
+display_name = "Triple Chair"
+description = "Get THREE chairs"
+icon = ExtResource("2_ef58c")
+rarity = 2
+weight = 0.5
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://cpk8oh0a5wi43"]
+
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_b4ioe"]
+[ext_resource type="PackedScene" uid="uid://estyn728brpn" path="res://entities/placeable/chair.tscn" id="1_ifyll"]
+[ext_resource type="Texture2D" uid="uid://cwhdflnwteoi8" path="res://assets/visual/props/Kursi inventory.png" id="2_622lv"]
+
+[resource]
+script = ExtResource("1_b4ioe")
+entity_scene = ExtResource("1_ifyll")
+quantity = 2
+display_name = "Double Chair"
+description = "Get two chairs"
+icon = ExtResource("2_622lv")
+rarity = 1
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

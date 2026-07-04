@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://badgnbdax4668"]
+
+[ext_resource type="PackedScene" uid="uid://f0j85lnsrftg" path="res://entities/placeable/shelf.tscn" id="1_gvevn"]
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_ydavp"]
+[ext_resource type="Texture2D" uid="uid://dt21glxqdrta5" path="res://assets/visual/props/Shelf inventory.png" id="2_ty0h8"]
+
+[resource]
+script = ExtResource("1_ydavp")
+entity_scene = ExtResource("1_gvevn")
+quantity = 3
+display_name = "Triple Shelf"
+description = "Get THREE shelves"
+icon = ExtResource("2_ty0h8")
+rarity = 2
+weight = 0.5
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

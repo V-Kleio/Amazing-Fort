@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://d3uj4y0oo8ptw"]
+
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_44pjw"]
+[ext_resource type="PackedScene" uid="uid://bikx33acup0lg" path="res://entities/placeable/pillow.tscn" id="1_s5e5i"]
+[ext_resource type="Texture2D" uid="uid://b4g1qgfyqdnv" path="res://assets/visual/props/Bantal inventory.png" id="2_enutp"]
+
+[resource]
+script = ExtResource("1_44pjw")
+entity_scene = ExtResource("1_s5e5i")
+quantity = 3
+display_name = "Triple Pillow"
+description = "Get THREE pillows"
+icon = ExtResource("2_enutp")
+rarity = 2
+weight = 0.5
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

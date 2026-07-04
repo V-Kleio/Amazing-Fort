@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://ccxox0frbdgne"]
+
+[ext_resource type="PackedScene" uid="uid://cmorhmnv48867" path="res://entities/placeable/bolster.tscn" id="1_noj5i"]
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_qw3xg"]
+[ext_resource type="Texture2D" uid="uid://bj72q8u2idueb" path="res://assets/visual/props/Guling inventory.png" id="2_udda2"]
+
+[resource]
+script = ExtResource("1_qw3xg")
+entity_scene = ExtResource("1_noj5i")
+quantity = 3
+display_name = "Triple Bolster"
+description = "Get THREE bolsters"
+icon = ExtResource("2_udda2")
+rarity = 2
+weight = 0.5
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

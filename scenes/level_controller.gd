@@ -23,7 +23,7 @@ extends Node2D
 ## Bottom-center of the 1920x1080 design space (no camera → world coords == screen coords).
 const KID_POSITION: Vector2 = Vector2(960.0, 870.0)
 ## Local offset of the hearts above the Kid's head.
-const HEARTS_OFFSET: Vector2 = Vector2(0.0, -420.0)
+const HEARTS_OFFSET: Vector2 = Vector2(0.0, -120.0)
 
 @onready var phase_container: Node = $PhaseContainer
 @onready var spawn_left: Marker2D = $SpawnPointLeft
@@ -56,7 +56,7 @@ func _setup_pause_juice() -> void:
 	UIJuice.press_scale(_pause_button)
 
 func _show_tutorial_if_needed() -> void:
-	if not SaveManager.is_tutorial_completed():
+	if not SaveManager.is_tutorial_completed() and tutorial_scene != null:
 		# Tutorial instantiated on top, blocks input until done
 		var tutorial: Node = tutorial_scene.instantiate()
 		add_child(tutorial)

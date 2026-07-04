@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cmorhmnv48867"]
+
+[ext_resource type="Script" uid="uid://dgq4i814x4hv3" path="res://entities/placeable/placeable_entity.gd" id="1_wcpl5"]
+[ext_resource type="Resource" uid="uid://cgqi3vy5b4a6b" path="res://data/entities/bolster.tres" id="2_wcpl5"]
+[ext_resource type="Texture2D" uid="uid://b3i7quau85643" path="res://assets/visual/props/Guling item.png" id="3_rwj5k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wcpl5"]
+size = Vector2(296, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwj5k"]
+size = Vector2(302, 89)
+
+[node name="PlaceableEntity" type="RigidBody2D" unique_id=9056730]
+z_index = 100
+collision_layer = 2
+collision_mask = 1035
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+continuous_cd = 1
+script = ExtResource("1_wcpl5")
+data = ExtResource("2_wcpl5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1784423852]
+texture = ExtResource("3_rwj5k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1521030836]
+shape = SubResource("RectangleShape2D_wcpl5")
+
+[node name="OverlapArea" type="Area2D" parent="." unique_id=2054259610]
+collision_layer = 16
+collision_mask = 21
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OverlapArea" unique_id=1831657059]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_rwj5k")

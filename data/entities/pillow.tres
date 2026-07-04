@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EntityData" format=3 uid="uid://cxytj0vr6uffb"]
+
+[ext_resource type="Script" uid="uid://b834wqe5chjer" path="res://data/entities/entity_data.gd" id="1_e6lil"]
+
+[resource]
+script = ExtResource("1_e6lil")
+display_name = "Pillow"
+metadata/_custom_type_script = "uid://b834wqe5chjer"

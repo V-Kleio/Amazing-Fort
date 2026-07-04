@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FurnitureDraftOption" format=3 uid="uid://di1x45moifguu"]
+
+[ext_resource type="PackedScene" uid="uid://f0j85lnsrftg" path="res://entities/placeable/shelf.tscn" id="1_adohu"]
+[ext_resource type="Script" uid="uid://ch2lfpt4nhllv" path="res://data/draft/furniture_draft_option.gd" id="1_i4e4y"]
+[ext_resource type="Texture2D" uid="uid://dt21glxqdrta5" path="res://assets/visual/props/Shelf inventory.png" id="2_akp7v"]
+
+[resource]
+script = ExtResource("1_i4e4y")
+entity_scene = ExtResource("1_adohu")
+quantity = 2
+display_name = "Double Shelf"
+description = "Get two shelves"
+icon = ExtResource("2_akp7v")
+rarity = 1
+metadata/_custom_type_script = "uid://ch2lfpt4nhllv"

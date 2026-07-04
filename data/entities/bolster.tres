@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EntityData" format=3 uid="uid://cgqi3vy5b4a6b"]
+
+[ext_resource type="Script" uid="uid://b834wqe5chjer" path="res://data/entities/entity_data.gd" id="1_ppv2t"]
+
+[resource]
+script = ExtResource("1_ppv2t")
+display_name = "Bolster"
+metadata/_custom_type_script = "uid://b834wqe5chjer"

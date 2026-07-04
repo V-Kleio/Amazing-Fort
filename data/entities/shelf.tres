@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EntityData" format=3 uid="uid://i0nukeusvlw"]
+
+[ext_resource type="Script" uid="uid://b834wqe5chjer" path="res://data/entities/entity_data.gd" id="1_faey5"]
+
+[resource]
+script = ExtResource("1_faey5")
+display_name = "Shelf"
+metadata/_custom_type_script = "uid://b834wqe5chjer"
